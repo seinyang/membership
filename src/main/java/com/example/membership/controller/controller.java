@@ -6,18 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class controller {
 
+    @GetMapping ("/")
+    public String home(){
+
+        return "index";
+    }
+
     @GetMapping ("/login")
         public String login(){
 
         return "login/page-login";
     }
 
+    @GetMapping ("/workload")
+    public String workload(){
 
-
-    @GetMapping ("/")
-    public String home(){
-
-        return "index";
+        return "dashboard/workload";
     }
+
 
 }

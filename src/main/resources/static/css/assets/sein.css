@@ -6,6 +6,12 @@ body{
     overflow: hidden;
     height: 100%;
 }
+
+#specific-page-body {
+    overflow-y: auto;
+    height: 100vh;
+}
+
 .login-form{
     background: white;
     padding: 50px;
@@ -22,20 +28,32 @@ body{
     top: -70px;
 }
 
-.sidebar .nano-content>ul {
-    width: 100%;
-    -webkit-transition: width 300ms ease-in-out;
-    transition: width 300ms ease-in-out;
+
+/* 기본 스타일 */
+.icon-container {
+    position: fixed;
+    top: 30px;
+    left: 10px;
 }
 
+/* 1200px 이하일 때 아이콘 위치 조정 */
+@media (max-width: 1200px) {
+    .icon-container {
+        top: 15px;
+        left: auto; /* 왼쪽에서 해제 */
+        right: 0; /* 오른쪽으로 이동 */
+    }
+}
 
-.sidebar .nano>.nano-content {
-    position: absolute;
-    overflow: scroll;
-    overflow-x: hidden;
+.hidden {
+    display: none;
+}
+
+.time-button{
+
+    width: 28px;
+    height: 30px;
+    font-size: 15px;
     top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
 
+}

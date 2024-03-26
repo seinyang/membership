@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/assets/sein.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <title>Title</title>
+
+</head>
+<body id="specific-page-body">
+<nav class="sticky-top navbar navbar-expand-xl navbar-dark bg-info">
+     <div class="icon-container ml-5">
+    <i class="fa-solid fa-naira-sign fa-2xl" style="color: #005eff;"></i><i class="fa-solid fa-e fa-xl" style="color: #005eff;"></i><i class="fa-solid fa-o fa-xl" style="color: #005eff;"></i>
+     </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="container">
+            <ul class="navbar-nav ml-auto py-3">
+                <li class="nav-item active mr-1">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-pen"></i>업무 일지 작성 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link disabled" href="#"><i class="fa-solid fa-check"></i>업무 일지 리스트</a>
+                </li>
+
+                <li class="nav-item active mr-1">
+                    <a class="nav-link" href="#"><i class="fa-regular fa-calendar-plus"></i>근태 내역 및 달력</a>
+                </li>
+
+                <li class="nav-item dropdown active ml-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>관리자
+                    </a>
+                    <div class="dropdown-menu">
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">로그아웃</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div><!--container-->
+</nav><!--navbar-->
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                   <div class="row">
+                        <div class="col">
+                            <div class="card shadow-lg" style="height: 750px">
+                                <div class="card-body">
+                                    <div class="col mx-auto" style="height: 730px">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="card shadow">
+                                                    <div class="card-body" style="height: 700px">
+                                                        <h3>업무일지 작성</h3>
+                                                        <div class="form-group row hidden">
+                                                            <label class="col-xs-1 col-form-label" for="userId" id="userIdLabel">사용자ID <span class="text-danger">*</span></label>
+                                                                <div class="col-lg-8" id="userIdContainer">
+                                                                    <div class="row">
+                                                                        <div class="col-4">
+                                                                            <input type="text" class="form-control" id="userId" name="userId" required value="001" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group row py-5 mt-2">
+                                                            <div class="col-lg-10">
+                                                                <div class="row">
+                                                                    <div class="col-3">
+                                                                        <!-- 왼쪽 반을 나타내는 부분 -->
+                                                                        <label class="col col-form-label ml-2" for="date">작성 날짜 <span class="text-danger">*</span></label>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-8 col-sm-10 ">
+                                                                        <!-- 왼쪽 반을 나타내는 부분 -->
+                                                                        <input type="date" class="form-control w-50 mr-2" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)">
+                                                                    </div>
+                                                                </div><!--row-->
+                                                            </div><!--col-->
+                                                        </div><!--form-->
+                                                        <div class="form-group row align-items-center pb-5 mr-2">
+                                                            <label class="col-form-label col-2 ml-4" for="timepicker">출근시간 <span class="text-danger">*</span></label>
+                                                            <div class="col-2">
+                                                                <input type="text" class="form-control mr-4" id="timepicker" name="startTime" required value="09:00">
+                                                            </div>
+                                                            <div class="col-lg-auto">
+                                                                <button class="btn btn-primary mr-2" type="button" id="normalWorkButton">정상 출근</button>
+                                                            </div>
+                                                            <label class="col-form-label col-lg-2" for="lateTime">지각 시간 </label>
+                                                            <div class="col-lg-2 row">
+                                                                <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                                            </div>
+                                                            <div style="display: flex; justify-content: space-between;">
+                                                                <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseBtn" style="margin-left: 50px;">+</button>
+                                                            </div>
+                                                            <div style="display: flex; justify-content: space-between;">
+                                                                <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="decreaseBtn"  style="margin-right: 15px;">-</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row align-items-center mr-2">
+                                                            <label class="col-form-label col-2 ml-4" for="timepickerEndTime" >퇴근시간 <span class="text-danger">*</span></label>
+                                                            <div class="col-2">
+                                                                <input type="text" class="form-control mr-4" id="timepickerEndTime" name="endTime" required value="18:00">
+                                                            </div>
+                                                            <div class="col-lg-auto">
+                                                                <button class="btn btn-primary mr-2" type="button" id="leaveWorkButton">정상 퇴근</button>
+                                                            </div>
+                                                            <label class="col-form-label col-lg-2" for="earlyLeaveTime">조퇴 시간 </label>
+                                                            <div class="col-lg-2 row">
+                                                                <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToEndTime(this.value);">
+                                                            </div>
+                                                            <div style="display: flex; justify-content: space-between;">
+                                                                <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseEarlyLeaveBtn" style="margin-left: 50px;">+</button>
+                                                            </div>
+                                                            <div style="display: flex; justify-content: space-between;">
+                                                                <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="decreaseEarlyLeaveBtn"  style="margin-right: 15px;">-</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row my-5 py-2">
+                                                            <div class="col-6">
+                                                                <div class="card shadow">
+                                                                    <div class="card-body" style="height:250px">
+                                                                        <div class="form-validation ">
+                                                                            <h3>당일 처리 항목</h3><br>
+                                                                        </div>
+                                                                        <div id="todayItemContainer">
+                                                                            <div class="form-group">
+                                                                                <label for="dailyItemCount">처리개수<br></label>
+                                                                                <div class="number-box" id="dailyItemCount"></div>
+                                                                            </div>
+                                                                            <div class="form-group mt-5">
+                                                                                <label for="dailyDuration">소요시간합계</label>
+                                                                                <div class="number-box" id="dailyDuration"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="card shadow">
+                                                                    <div class="card-body" style="height: 250px">
+                                                                        <div class="form-validation">
+                                                                            <h3>오늘 작업</h3><br>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="todayItemCount">처리 개수</label>
+                                                                            <div class="number-box" id="todayItemCount"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><!--row-->
+                                                    </div><!--card-body-->
+                                                </div><!--card-->
+                                            </div><!--col-->
+                                            <div class="col-6">
+                                                <div class="card shadow">
+                                                    <div class="card-body" style="height: 700px">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-validation">
+                                                                    <h5>업무내용<span class="text-danger">*</span></h5>
+                                                                </div>
+                                                                <div id="smarteditor">
+                                                                <textarea name="editorTxt" id="editorTxt"
+                                                                          rows="10" cols="10"
+                                                                          placeholder="내용을 입력해주세요"
+                                                                          style="width: 1500px" required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--세번째 카드(두개)-->
+                                    </div><!--두번째 카드-->
+                                </div><!--card-body-->
+                            </div><!--전체 감싸는카드-->
+                        </div><!--col-->
+                   </div><!--row-->
+                </div><!--card-body-->
+            </div><!--card-->
+        </div><!--col-->
+    </div><!--row-->
+</div><!--container-->
+<script  src="/js/sein.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/77f56f6c86.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
