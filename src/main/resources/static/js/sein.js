@@ -33,3 +33,27 @@ $(document).ready(function() {
         oEditors.getById["editorTxt"].exec("PASTE_HTML", [businessContent]);
     }
 })
+
+function adjustCardHeight() {
+    var firstCard = document.getElementById('firstCard');
+    var secondCard = document.getElementById('secondCard');
+    var thirdCard =document.getElementById("thirdCard");
+    var windowHeight = window.innerHeight;
+
+    // 첫 번째 카드의 높이 조정
+    var firstCardHeight = Math.max(firstCard.clientHeight, 1000);
+    firstCard.style.height = firstCardHeight + 'px';
+
+    // 두 번째 카드의 높이 조정
+    var secondCardHeight = Math.max(secondCard.clientHeight, 920 );
+    secondCard.style.height = secondCardHeight + 'px';
+
+    var thirdCardHeight = Math.max(thirdCard.clientHeight, 850);
+    secondCard.style.height = thirdCardHeight + 'px';
+}
+
+// 페이지 로드 시 카드 높이 조정
+window.onload = adjustCardHeight;
+
+// 창 크기가 변경될 때마다 카드 높이를 조정
+window.onresize = adjustCardHeight;

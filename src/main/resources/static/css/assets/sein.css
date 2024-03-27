@@ -1,10 +1,6 @@
 .login-content{
-    margin: 240px 0;
+    margin: 100px 0;
 
-}
-body{
-    overflow: hidden;
-    height: 100%;
 }
 
 #specific-page-body {
@@ -13,21 +9,37 @@ body{
 }
 
 .login-form{
-    background: white;
-    padding: 50px;
-    border-radius: 7px;
-    width: 100%;
-    margin:-35px auto 0;
-    max-width: 900px; /* 최대 너비 설정 */
-
+    background: #ffffff;
+    padding: 30px 30px 20px;
+    border-radius: 10px;
+    margin-top: 35px;
 }
 .login-logo{
     text-align: center;
-    margin-top: 20px;
-    position: relative;
-    top: -70px;
+    margin-bottom: 15px;
 }
 
+.social-login-content {
+    margin: 0 -30px;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 30px 0;
+    background: #fcfcfc;
+}
+
+.social-button {
+    padding: 0 30px;
+}
+
+.social-button a {
+    display: inline-block;
+    padding: 10px 20px;
+
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
 /* 기본 스타일 */
 .icon-container {
@@ -36,6 +48,11 @@ body{
     left: 10px;
 }
 
+.nav-css{
+    position: fixed;
+    top: 30px;
+    right: 50px;
+}
 /* 1200px 이하일 때 아이콘 위치 조정 */
 @media (max-width: 1200px) {
     .icon-container {
@@ -57,3 +74,11 @@ body{
     top: 0;
 
 }
+/*
+.card-bodys {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    height: 100vh;
+}*/
