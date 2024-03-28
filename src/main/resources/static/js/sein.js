@@ -38,18 +38,31 @@ function adjustCardHeight() {
     var firstCard = document.getElementById('firstCard');
     var secondCard = document.getElementById('secondCard');
     var thirdCard =document.getElementById("thirdCard");
-    var windowHeight = window.innerHeight;
+    var thirdCard2 =document.getElementById("thirdCard2");
+    var fourCard =document.getElementById("four");
+    var fourCard2 =document.getElementById("four2");
+    var windowHeight = document.documentElement.clientHeight; // 실제 화면의 높이 가져오기
+
 
     // 첫 번째 카드의 높이 조정
-    var firstCardHeight = Math.max(firstCard.clientHeight, 1000);
+    var firstCardHeight =1000;
     firstCard.style.height = firstCardHeight + 'px';
 
     // 두 번째 카드의 높이 조정
-    var secondCardHeight = Math.max(secondCard.clientHeight, 920 );
+    var secondCardHeight = 920;
     secondCard.style.height = secondCardHeight + 'px';
 
-    var thirdCardHeight = Math.max(thirdCard.clientHeight, 850);
-    secondCard.style.height = thirdCardHeight + 'px';
+    var thirdCardHeight = 850;
+    thirdCard.style.height = thirdCardHeight + 'px';
+
+    var thirdCardHeight2 = 850;
+    thirdCard2.style.height = thirdCardHeight2 + 'px';
+
+    var fourCardHeight = 250;
+    fourCard.style.height = fourCardHeight +'px';
+
+    var fourCardHeight2 = 250;
+    fourCard2.style.height = fourCardHeight2 +'px';
 }
 
 // 페이지 로드 시 카드 높이 조정

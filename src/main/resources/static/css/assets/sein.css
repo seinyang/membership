@@ -66,19 +66,16 @@
     display: none;
 }
 
-.time-button{
+.time-button-container {
+    display: flex;
+    align-items: center;
+}
 
+.time-button {
     width: 28px;
     height: 30px;
     font-size: 15px;
-    top: 0;
+    margin-right: 5px; /* 우측 마진을 설정하여 간격 조절 */
+    margin-top: 0rem;
 
 }
-/*
-.card-bodys {
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
-    height: 100vh;
-}*/

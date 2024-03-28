@@ -47,17 +47,16 @@
         </div>
     </div><!--container-->
 </nav><!--navbar-->
-
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card shadow-lg" id="firstCard" style="max-height: 1000px;">
+            <div class="card shadow-lg" id="firstCard">
                 <div class="card-body">
-                    <div class="card shadow my-4 " id="secondCard" style="max-height: 920px;">
+                    <div class="card shadow my-4" id="secondCard">
                         <div class="card-body">
-                            <div class="row my-2">
+                            <div class="row my-2 mt-3">
                                 <div class="col-6">
-                                    <div class="card shadow thirdCard py-5" style="max-height: 850px;">
+                                    <div class="card shadow py-2" id="thirdCard">
                                         <div class="card-body">
                                             <h3>업무일지 작성</h3>
                                             <div class="form-group row hidden">
@@ -84,7 +83,7 @@
                                                     </div><!--row-->
                                                 </div><!--col-->
                                             </div><!--form-->
-                                            <div class="form-group row align-items-center pb-5 mr-2">
+                                            <div class="form-group row align-items-center mt-2 mr-2">
                                                 <label class="col-form-label col-2 ml-4" for="timepicker">출근시간 <span class="text-danger">*</span></label>
                                                 <div class="col-2">
                                                     <input type="text" class="form-control mr-4" id="timepicker" name="startTime" required value="09:00">
@@ -93,17 +92,15 @@
                                                     <button class="btn btn-primary mr-2" type="button" id="normalWorkButton">정상 출근</button>
                                                 </div>
                                                 <label class="col-form-label col-lg-2" for="lateTime">지각 시간 </label>
-                                                <div class="col-lg-2 row">
+                                                <div class="col-lg-2 row mr-1">
                                                     <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
                                                 </div>
-                                                <div style="display: flex; justify-content: space-between;">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseBtn" style="margin-left: 50px;">+</button>
-                                                </div>
-                                                <div style="display: flex; justify-content: space-between;">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="decreaseBtn"  style="margin-right: 15px;">-</button>
+                                                <div class="time-button-container">
+                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseBtn">+</button>
+                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseBtn">-</button>
                                                 </div>
                                             </div>
-                                            <div class="form-group row align-items-center mr-2">
+                                            <div class="form-group row align-items-center mr-2 my-5 py-5">
                                                 <label class="col-form-label col-2 ml-4" for="timepickerEndTime" >퇴근시간 <span class="text-danger">*</span></label>
                                                 <div class="col-2">
                                                     <input type="text" class="form-control mr-4" id="timepickerEndTime" name="endTime" required value="18:00">
@@ -112,21 +109,19 @@
                                                     <button class="btn btn-primary mr-2" type="button" id="leaveWorkButton">정상 퇴근</button>
                                                 </div>
                                                 <label class="col-form-label col-lg-2" for="earlyLeaveTime">조퇴 시간 </label>
-                                                <div class="col-lg-2 row">
+                                                <div class="col-lg-2 row mr-1">
                                                     <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToEndTime(this.value);">
                                                 </div>
-                                                <div style="display: flex; justify-content: space-between;">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseEarlyLeaveBtn" style="margin-left: 50px;">+</button>
-                                                </div>
-                                                <div style="display: flex; justify-content: space-between;">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="decreaseEarlyLeaveBtn"  style="margin-right: 15px;">-</button>
+                                                <div class="time-button-container">
+                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseEarlyLeaveBtn">+</button>
+                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseEarlyLeaveBtn">-</button>
                                                 </div>
                                             </div>
-                                            <div class="row my-5 py-2">
-                                                <div class="col-6 my-3">
+                                            <div class="row my-5">
+                                                <div class="col col-lg-6 col-md-4 my-3" id="four">
                                                     <div class="card shadow">
-                                                        <div class="card-body" style="height:250px">
-                                                            <div class="form-validation ">
+                                                        <div class="card-body">
+                                                            <div class="form-validation">
                                                                 <h3>당일 처리 항목</h3><br>
                                                             </div>
                                                             <div id="todayItemContainer">
@@ -142,15 +137,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6 my-3">
+                                                <div class="col-6 my-3" id="four2">
                                                     <div class="card shadow">
-                                                        <div class="card-body" style="height: 250px">
+                                                        <div class="card-body">
                                                             <div class="form-validation">
                                                                 <h3>오늘 작업</h3><br>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="todayItemCount">처리 개수</label>
                                                                 <div class="number-box" id="todayItemCount"></div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <div class="number-box" ></div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label></label>
+                                                                <div class="number-box" ></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -160,7 +163,7 @@
                                     </div><!--card-->
                                 </div><!--col업무 작성 왼쪽 카드-->
                                 <div class="col-6">
-                                    <div class="card shadow thirdCard" style="max-height: 850px;">
+                                    <div class="card shadow" id="thirdCard2">
                                         <div class="card-body mx-2">
                                             <div class="row">
                                                 <div class="col">
