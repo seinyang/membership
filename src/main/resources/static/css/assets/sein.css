@@ -76,6 +76,17 @@
     height: 30px;
     font-size: 15px;
     margin-right: 5px; /* 우측 마진을 설정하여 간격 조절 */
-    margin-top: 0rem;
+}
 
+
+#calendar {
+    max-width: 1100px;
+    margin: 90px 3px 40px auto;
+}
+/* 캘린더 컨테이너 스타일 */
+#calendar-container {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* 가로 스크롤 숨김 */
 }

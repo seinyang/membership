@@ -70,3 +70,4 @@ window.onload = adjustCardHeight;
 
 // 창 크기가 변경될 때마다 카드 높이를 조정
 window.onresize = adjustCardHeight;
+

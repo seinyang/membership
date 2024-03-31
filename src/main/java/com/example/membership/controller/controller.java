@@ -24,5 +24,9 @@ public class controller {
         return "dashboard/workload";
     }
 
+    @GetMapping ("/calendar")
+    public String calendar(){
 
+        return "dashboard/calendar";
+    }
 }
