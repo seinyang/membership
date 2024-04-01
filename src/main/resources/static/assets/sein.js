@@ -1,3 +1,4 @@
+
 // 현재 날짜를 가져오는 함수
 function getCurrentDate() {
     const now = new Date();

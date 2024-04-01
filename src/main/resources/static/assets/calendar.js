@@ -15,8 +15,8 @@
                 right: 'dayGridMonth',//timeGridWeek,timeGridDay,listWeek
             },
             initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-            navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
-            // editable: false, // 수정 가능?
+            navLinks: false, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
+            editable: false, // 수정 가능?
             selectable: false, // 달력 일자 드래그 설정가능
             nowIndicator: true, // 현재 시간 마크
             dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
@@ -30,23 +30,19 @@
             eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
                 console.log(obj);
             },
-            select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-                var title = prompt('Event Title:');
-                if (title) {
-                    calendar.addEvent({
-                        title: title,
-                        start: arg.start,
-                        end: arg.end,
-                        allDay: arg.allDay
-                    })
-                }
-                calendar.unselect()
-            },
             // 이벤트
             events: [
             ]
         });
         // 캘린더 랜더링
         calendar.render();
+
+        // 일요일에 해당하는 셀의 텍스트 색상을 빨간색으로 변경
+        calendar.on('dayCellDidMount', function (arg) {
+            var dayOfWeek = arg.date.getDay(); // 일요일: 0, 월요일: 1, ..., 토요일: 6
+            if (dayOfWeek === 0) { // 일요일인 경우
+                arg.el.style.color = 'red'; // 텍스트 색상을 빨간색으로 변경
+            }
+        });
     });
 })();
