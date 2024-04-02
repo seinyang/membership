@@ -1,52 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/sein.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" lang="kr">
+<th:block layout:fragment="content">
 
-    <title>Title</title>
-
-</head>
-<body id="specific-page-body">
-<nav class="sticky-top navbar navbar-expand-xl navbar-dark bg-info">
-     <div class="icon-container ml-5">
-    <i class="fa-solid fa-naira-sign fa-2xl" style="color: #005eff;"></i><i class="fa-solid fa-e fa-xl" style="color: #005eff;"></i><i class="fa-solid fa-o fa-xl" style="color: #005eff;"></i>
-     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <div class="container">
-
-            <ul class="navbar-nav ml-auto py-3">
-                <li class="nav-item active mr-1">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-pen"></i>업무 일지 작성 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item mr-1">
-                    <a class="nav-link disabled" href="#"><i class="fa-solid fa-check"></i>업무 일지 리스트</a>
-                </li>
-
-                <li class="nav-item active mr-1">
-                    <a class="nav-link" href="#"><i class="fa-regular fa-calendar-plus"></i>근태 내역 및 달력</a>
-                </li>
-
-                <li class="nav-item dropdown active ml-5">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>관리자
-                    </a>
-                    <div class="dropdown-menu">
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">로그아웃</a>
-                    </div>
-                </li>
-            </ul>
-
-        </div>
-    </div><!--container-->
-</nav><!--navbar-->
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-lg-12">
@@ -222,16 +179,5 @@
     </div><!--row-->
 </div><!--container-->
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="/assets/sein.js"></script>
-
-<!--스마트에디터js-->
-<script src="/css/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-<script src="https://kit.fontawesome.com/77f56f6c86.js" crossorigin="anonymous"></script>
-
-</body>
+</th:block>
 </html>

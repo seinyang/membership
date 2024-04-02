@@ -30,6 +30,7 @@ dependencies {
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 }
 
