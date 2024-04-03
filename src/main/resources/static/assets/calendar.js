@@ -46,3 +46,8 @@
         });
     });
 })();
+
+if (window.location.pathname === "/calendar") {
+    document.write('<script src="/js/fullcalendar/dist/index.global.min.js"><\/script>');
+    document.write('<script src="/js/fullcalendar/packages/core/locales-all.global.min.js"><\/script>');
+}
