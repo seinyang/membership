@@ -6,7 +6,6 @@ spring:
     suffix: .html
     enabled: true
 
-
 workapi:
   serverAddress: https://workapi.neo-works.co.kr
 

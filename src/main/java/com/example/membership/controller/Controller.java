@@ -1,10 +1,9 @@
 package com.example.membership.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class controller {
+@org.springframework.stereotype.Controller
+public class Controller {
 
     @GetMapping ("/")
     public String home(){
@@ -12,11 +11,6 @@ public class controller {
         return "index";
     }
 
-    @GetMapping ("/login")
-        public String login(){
-
-        return "login/page-login";
-    }
 
     @GetMapping ("/workload")
     public String workload(){

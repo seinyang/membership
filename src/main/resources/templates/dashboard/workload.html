@@ -11,166 +11,169 @@
                 <div class="card-body">
                     <div class="card shadow my-4" id="secondCard">
                         <div class="card-body">
-                            <div class="row my-2 mt-3">
-                                <div class="col-6">
-                                    <div class="card shadow py-2" id="thirdCard">
-                                        <div class="card-body">
-                                            <h3>업무일지 작성</h3>
-                                            <div class="form-group row hidden">
-                                                <label class="col-xs-1 col-form-label" for="userId" id="userIdLabel">사용자ID <span class="text-danger">*</span></label>
-                                                    <div class="col-lg-8" id="userIdContainer">
+                            <form id="workHistoryForm" action="/workload" method="post" >
+                                <div class="row my-2 mt-3">
+                                    <div class="col-6">
+                                        <div class="card shadow py-2" id="thirdCard">
+                                            <div class="card-body">
+                                                <h3>업무일지 작성</h3>
+                                                <div class="form-group row hidden">
+                                                    <label class="col-xs-1 col-form-label" for="userId" id="userIdLabel">사용자ID <span class="text-danger">*</span></label>
+                                                        <div class="col-lg-8" id="userIdContainer">
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <input type="text" class="form-control" id="userId" name="userId" required value="001" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group row py-5 mt-2">
+                                                    <div class="col-lg-10">
                                                         <div class="row">
-                                                            <div class="col-4">
-                                                                <input type="text" class="form-control" id="userId" name="userId" required value="001" readonly>
+                                                            <div class="col-3">
+                                                                <!-- 왼쪽 반을 나타내는 부분 -->
+                                                                <label class="col col-form-label ml-2" for="date">작성 날짜 <span class="text-danger">*</span></label>
+                                                            </div>
+                                                            <div class="col-6 col-md-8 col-sm-10 ">
+                                                                <!-- 왼쪽 반을 나타내는 부분 -->
+                                                                <input type="date" class="form-control w-50 mr-2" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)">
+                                                            </div>
+                                                        </div><!--row-->
+                                                    </div><!--col-->
+                                                </div><!--form-->
+                                                <div class="form-group row align-items-center mt-2 mr-2">
+                                                    <label class="col-form-label col-2 ml-4" for="timepicker">출근시간 <span class="text-danger">*</span></label>
+                                                    <div class="col-2">
+                                                        <input type="text" class="form-control mr-4" id="timepicker" name="startTime" required value="09:00">
+                                                    </div>
+                                                    <div class="col-lg-auto">
+                                                        <button class="btn btn-primary mr-2" type="button" id="normalWorkButton">정상 출근</button>
+                                                    </div>
+                                                    <label class="col-form-label col-lg-2" for="lateTime">지각 시간</label>
+                                                    <div class="col-lg-2 row mr-1">
+                                                        <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                                    </div>
+                                                    <div class="time-button-container">
+                                                        <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseBtn">+</button>
+                                                        <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseBtn">-</button>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row align-items-center mr-2 my-5 py-5">
+                                                    <label class="col-form-label col-2 ml-4" for="timepickerEndTime" >퇴근시간 <span class="text-danger">*</span></label>
+                                                    <div class="col-2">
+                                                        <input type="text" class="form-control mr-4" id="timepickerEndTime" name="endTime" required value="18:00">
+                                                    </div>
+                                                    <div class="col-lg-auto">
+                                                        <button class="btn btn-primary mr-2" type="button" id="leaveWorkButton">정상 퇴근</button>
+                                                    </div>
+                                                    <label class="col-form-label col-lg-2" for="earlyLeaveTime">조퇴 시간 </label>
+                                                    <div class="col-lg-2 row mr-1">
+                                                        <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToEndTime(this.value);">
+                                                    </div>
+                                                    <div class="time-button-container">
+                                                        <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseEarlyLeaveBtn">+</button>
+                                                        <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseEarlyLeaveBtn">-</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row my-5">
+                                                    <div class="col col-lg-6 col-md-4 my-3" id="four">
+                                                        <div class="card shadow">
+                                                            <div class="card-body">
+                                                                <div class="form-validation">
+                                                                    <h3>당일 처리 항목</h3><br>
+                                                                </div>
+                                                                <div id="todayItemContainer">
+                                                                    <div class="form-group">
+                                                                        <label for="dailyItemCount">처리개수<br></label>
+                                                                        <div class="number-box" id="dailyItemCount"></div>
+                                                                    </div>
+                                                                    <div class="form-group mt-5">
+                                                                        <label for="dailyDuration">소요시간합계</label>
+                                                                        <div class="number-box" id="dailyDuration"></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
-                                            <div class="form-group row py-5 mt-2">
-                                                <div class="col-lg-10">
-                                                    <div class="row">
-                                                        <div class="col-3">
-                                                            <!-- 왼쪽 반을 나타내는 부분 -->
-                                                            <label class="col col-form-label ml-2" for="date">작성 날짜 <span class="text-danger">*</span></label>
-                                                        </div>
-                                                        <div class="col-6 col-md-8 col-sm-10 ">
-                                                            <!-- 왼쪽 반을 나타내는 부분 -->
-                                                            <input type="date" class="form-control w-50 mr-2" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)">
-                                                        </div>
-                                                    </div><!--row-->
-                                                </div><!--col-->
-                                            </div><!--form-->
-                                            <div class="form-group row align-items-center mt-2 mr-2">
-                                                <label class="col-form-label col-2 ml-4" for="timepicker">출근시간 <span class="text-danger">*</span></label>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mr-4" id="timepicker" name="startTime" required value="09:00">
-                                                </div>
-                                                <div class="col-lg-auto">
-                                                    <button class="btn btn-primary mr-2" type="button" id="normalWorkButton">정상 출근</button>
-                                                </div>
-                                                <label class="col-form-label col-lg-2" for="lateTime">지각 시간 </label>
-                                                <div class="col-lg-2 row mr-1">
-                                                    <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
-                                                </div>
-                                                <div class="time-button-container">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseBtn">+</button>
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseBtn">-</button>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row align-items-center mr-2 my-5 py-5">
-                                                <label class="col-form-label col-2 ml-4" for="timepickerEndTime" >퇴근시간 <span class="text-danger">*</span></label>
-                                                <div class="col-2">
-                                                    <input type="text" class="form-control mr-4" id="timepickerEndTime" name="endTime" required value="18:00">
-                                                </div>
-                                                <div class="col-lg-auto">
-                                                    <button class="btn btn-primary mr-2" type="button" id="leaveWorkButton">정상 퇴근</button>
-                                                </div>
-                                                <label class="col-form-label col-lg-2" for="earlyLeaveTime">조퇴 시간 </label>
-                                                <div class="col-lg-2 row mr-1">
-                                                    <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToEndTime(this.value);">
-                                                </div>
-                                                <div class="time-button-container">
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button" type="button" id="increaseEarlyLeaveBtn">+</button>
-                                                    <button class="btn btn-outline-secondary btn-block btn-sm time-button mb-2" type="button" id="decreaseEarlyLeaveBtn">-</button>
-                                                </div>
-                                            </div>
-                                            <div class="row my-5">
-                                                <div class="col col-lg-6 col-md-4 my-3" id="four">
-                                                    <div class="card shadow">
-                                                        <div class="card-body">
-                                                            <div class="form-validation">
-                                                                <h3>당일 처리 항목</h3><br>
-                                                            </div>
-                                                            <div id="todayItemContainer">
+                                                    <div class="col-6 my-3" id="four2">
+                                                        <div class="card shadow">
+                                                            <div class="card-body">
+                                                                <div class="form-validation">
+                                                                    <h3>오늘 작업</h3><br>
+                                                                </div>
                                                                 <div class="form-group">
-                                                                    <label for="dailyItemCount">처리개수<br></label>
-                                                                    <div class="number-box" id="dailyItemCount"></div>
+                                                                    <label for="todayItemCount">처리 개수</label>
+                                                                    <div class="number-box" id="todayItemCount"></div>
                                                                 </div>
-                                                                <div class="form-group mt-5">
-                                                                    <label for="dailyDuration">소요시간합계</label>
-                                                                    <div class="number-box" id="dailyDuration"></div>
+                                                                <div class="form-group">
+                                                                    <label></label>
+                                                                    <div class="number-box"></div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label></label>
+                                                                    <div class="number-box"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-6 my-3" id="four2">
-                                                    <div class="card shadow">
-                                                        <div class="card-body">
-                                                            <div class="form-validation">
-                                                                <h3>오늘 작업</h3><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="todayItemCount">처리 개수</label>
-                                                                <div class="number-box" id="todayItemCount"></div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label></label>
-                                                                <div class="number-box" ></div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label></label>
-                                                                <div class="number-box" ></div>
-                                                            </div>
+                                                </div><!--row-->
+                                            </div><!--card-body-->
+                                        </div><!--card-->
+                                    </div><!--col업무 작성 왼쪽 카드-->
+                                    <div class="col-6">
+                                        <div class="card shadow" id="thirdCard2">
+                                            <div class="card-body mx-2">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-validation">
+                                                            <h5>업무내용<span class="text-danger">*</span></h5>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div><!--row-->
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col업무 작성 왼쪽 카드-->
-                                <div class="col-6">
-                                    <div class="card shadow" id="thirdCard2">
-                                        <div class="card-body mx-2">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-validation">
-                                                        <h5>업무내용<span class="text-danger">*</span></h5>
-                                                    </div>
-                                                    <div id="smarteditor">
-                                                    <textarea name="editorTxt" id="editorTxt"
-                                                              rows="5" cols="5"
-                                                              placeholder="내용을 입력해주세요"
-                                                              style="max-width:750px;width: 100%; margin-bottom: 2px" required></textarea>
-                                                    </div>
-                                                    <div class="form-validation">
-                                                        <br>
-                                                        <h5>요청사항</h5>
-                                                    </div>
-                                                    <div class="request-section">
-                                                        <label for="request"></label>
-                                                        <textarea id="request"
-                                                                  name="request" rows="5"
-                                                                  cols="20" style="width:100%; box-sizing:border-box;"></textarea>
-                                                    </div>
-                                                </div><!--col-->
-                                            </div><!--row-->
-                                            <div class="row" >
-                                                <div class="col" >
-                                                    <div class="form-validation">
-                                                        <br>
-                                                        <h5>긴급요청건</h5>
-                                                    </div>
-                                                    <div class="request-section mb-3">
-                                                        <label for="urgentRequest"></label>
-                                                        <textarea id="urgentRequest"
-                                                                  name="urgentRequest" rows="5"
-                                                                  cols="20" style="width:100%; box-sizing:border-box;"></textarea>
-                                                    </div>
-                                                    <div class="text-right my-5">
-                                                        <button type="submit" class="btn btn-primary" id="saveButton"
-                                                        >저장하기
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary" id="cancelButton"
-                                                        >취소하기
-                                                        </button>
-                                                    </div>
-                                                </div><!--col-->
-                                            </div><!--row-->
-                                        </div><!--cardbody-->
-                                    </div><!--card 스마트에디터 오른쪽 카드-->
-                                </div><!--col-->
-                            </div><!--row-->
+                                                        <div id="smarteditor">
+                                                            <label for="editorTxt"></label>
+                                                            <textarea name="editorTxt" id="editorTxt"
+                                                                 rows="5" cols="5"
+                                                                 placeholder="내용을 입력해주세요"
+                                                                 style="max-width:750px;width: 100%; margin-bottom: 2px" required></textarea>
+                                                        </div>
+                                                        <div class="form-validation">
+                                                            <br>
+                                                            <h5>요청사항</h5>
+                                                        </div>
+                                                        <div class="request-section">
+                                                            <label for="request"></label>
+                                                            <textarea id="request"
+                                                                      name="request" rows="5"
+                                                                      cols="20" style="width:100%; box-sizing:border-box;"></textarea>
+                                                        </div>
+                                                    </div><!--col-->
+                                                </div><!--row-->
+                                                <div class="row" >
+                                                    <div class="col" >
+                                                        <div class="form-validation">
+                                                            <br>
+                                                            <h5>긴급요청건</h5>
+                                                        </div>
+                                                        <div class="request-section mb-3">
+                                                            <label for="urgentRequest"></label>
+                                                            <textarea id="urgentRequest"
+                                                                      name="urgentRequest" rows="5"
+                                                                      cols="20" style="width:100%; box-sizing:border-box;"></textarea>
+                                                        </div>
+                                                        <div class="text-right my-5">
+                                                            <button type="submit" class="btn btn-primary" id="saveButton"
+                                                            >저장하기
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary" id="cancelButton"
+                                                            >취소하기
+                                                            </button>
+                                                        </div>
+                                                    </div><!--col-->
+                                                </div><!--row-->
+                                            </div><!--cardbody-->
+                                        </div><!--card 스마트에디터 오른쪽 카드-->
+                                    </div><!--col-->
+                                </div><!--row-->
+                            </form>
                         </div><!--card-body-->
                     </div><!--card (두번째 카드-->
                 </div><!--card-body-->
@@ -178,6 +181,31 @@
         </div><!--col-->
     </div><!--row-->
 </div><!--container-->
+    <script>
+        document.getElementById("cancelButton").addEventListener("click", function() {
+            var isConfirmed = confirm("데이터가 저장되지 않았습니다. 정말로 취소하시겠습니까?");
 
+            if (isConfirmed) {
+                document.getElementById("workHistoryForm").reset();
+            } else {
+
+            }
+        });
+        document.getElementById("saveButton").addEventListener("click", function (event) {
+
+            var isConfirmed2 = confirm("데이터를 저장하시겠습니까?");
+
+            // 업무내용 검사
+            var businessContent = document.getElementById("editorTxt").value.trim();
+            if (businessContent === "") {
+                alert("업무내용을 입력하세요.");
+                event.preventDefault(); // 저장하기 동작을 막음
+            } else if (isConfirmed2) {
+                // 요청 성공 시 응답을 처리합니다.
+                window.location.href = '/calender';
+                alert('근무 기록이 성공적으로 저장되었습니다.');
+            }
+        });
+    </script>
 </th:block>
 </html>
