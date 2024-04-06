@@ -12,11 +12,6 @@ public class Controller {
     }
 
 
-    @GetMapping ("/workload")
-    public String workload(){
-
-        return "dashboard/workload";
-    }
 
     @GetMapping ("/calendar")
     public String calendar(){
