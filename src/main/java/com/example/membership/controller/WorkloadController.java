@@ -3,6 +3,7 @@ package com.example.membership.controller;
 import com.example.membership.dto.completed.CompletedDTO;
 import com.example.membership.dto.job.WorkDTO;
 
+import com.example.membership.dto.process.ProcessingDTO;
 import com.example.membership.service.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,24 @@ public class WorkloadController {
             }
         }catch (Exception ex){
             throw new RuntimeException(ex);
+        }
+    }
+
+    //오늘처리갯수
+    @GetMapping("/processing")
+    public ResponseEntity<ProcessingDTO> getProccessing(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(name = "inputDate") String inputDate){
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        try {
+            ProcessingDTO result = service.getProcessing(inputDate,token);
+
+            if (result != null) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

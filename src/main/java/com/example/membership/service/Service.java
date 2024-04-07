@@ -4,6 +4,7 @@ package com.example.membership.service;
 import com.example.membership.dto.completed.CompletedDTO;
 import com.example.membership.dto.completed.CompletedProcess;
 import com.example.membership.dto.job.WorkDTO;
+import com.example.membership.dto.process.ProcessingDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class Service {
             return null; // 로그인 실패 시 null 반환
         }
     }
+
     //당일 처리 항목
     public CompletedDTO getCompleted(String inputDate, String token){
         HttpHeaders headers = new HttpHeaders();
@@ -57,7 +59,7 @@ public class Service {
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        String apiAddress = serverAddress + "/api/Job/day-Completed?inpuDate" + inputDate;
+        String apiAddress = serverAddress + "/api/Job/day-Completed?inpuDate=" + inputDate;
 
         try {
             ResponseEntity<CompletedDTO> responseEntity = restTemplate.exchange(
@@ -72,6 +74,33 @@ public class Service {
             }
         }catch (RestClientResponseException ex){
             return new CompletedDTO();
+        }
+    }
+
+    //오늘처리 갯수
+    public ProcessingDTO getProcessing(String inputDate, String token){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization","Bearer"+token);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String apiAddress = serverAddress + "/api/Job/Day-Processing?inpuDate=" + inputDate;
+
+        try {
+            ResponseEntity<ProcessingDTO> responseEntity = restTemplate.exchange(
+                    apiAddress,
+                    HttpMethod.GET,
+                    entity,
+                    ProcessingDTO.class);
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                return responseEntity.getBody();
+            } else {
+                return new ProcessingDTO();
+            }
+
+        } catch (RestClientResponseException ex) {
+            return new ProcessingDTO();
         }
     }
 }

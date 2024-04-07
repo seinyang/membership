@@ -483,6 +483,7 @@
         }
     </script>
 
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
@@ -566,7 +567,7 @@
                 oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
                 // 에디터의 내용 가져오기
                 let content = oEditors.getById["editorTxt"].getIR();
-// 여기서 원하는 데이터를 생성합니다.
+                // 여기서 원하는 데이터를 생성합니다.
                 const data = {
                     "사용자ID": fixedUserId,
                     "작성날짜": date,
@@ -585,7 +586,7 @@
                     "업무소요시간": 0,
                     "gwanliID": 0, // "관리ID"를 "gwanliID"로 변경
                 };
-// 데이터 출력
+                // 데이터 출력
                 console.log('전송할 데이터:', data);
                 console.log('사용하는 토큰 값:', token); // 토큰 값 확인
                 try {
