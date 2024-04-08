@@ -13,10 +13,6 @@ public class Controller {
 
 
 
-    @GetMapping ("/calendar")
-    public String calendar(){
 
-        return "dashboard/calendar";
-    }
 
 }

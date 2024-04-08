@@ -38,27 +38,27 @@ public class WorkloadController {
     }
 
 
-    //당일 처리항목
+    //당일처리항목
     @GetMapping("/completed")
-    public ResponseEntity<CompletedDTO> getCompleted(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(name = "inputDate") String inputDate){
-        String token = authorizationHeader.replace("Barear","");
+    public ResponseEntity<CompletedDTO> getCompleted(@RequestHeader("Authorization") String authorizationHeader,@RequestParam(name = "inputDate") String inputDate) {
+        String token = authorizationHeader.replace("Bearer ", "");
 
         try {
             CompletedDTO result = service.getCompleted(inputDate,token);
 
-            if (result != null){
+            if (result != null) {
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
-        }catch (Exception ex){
-            throw new RuntimeException(ex);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     //오늘처리갯수
     @GetMapping("/processing")
-    public ResponseEntity<ProcessingDTO> getProccessing(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(name = "inputDate") String inputDate){
+    public ResponseEntity<ProcessingDTO> getProccessing(@RequestHeader("Authorization") String authorizationHeader,@RequestParam(name = "inputDate") String inputDate){
         String token = authorizationHeader.replace("Bearer ", "");
 
         try {
