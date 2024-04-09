@@ -41,6 +41,19 @@
                                                         </div><!--row-->
                                                     </div><!--col-->
                                                 </div><!--form-->
+                                                <script>
+                                                    // 현재 날짜를 가져오는 함수
+                                                    function getCurrentDate() {
+                                                        const now = new Date();
+                                                        const year = now.getFullYear();
+                                                        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                                                        const day = now.getDate().toString().padStart(2, '0');
+                                                        return `${year}-${month}-${day}`;
+                                                    }
+
+                                                    // 작성 날짜 입력 필드에 현재 날짜 설정
+                                                    document.getElementById('date').value = getCurrentDate();
+                                                </script>
                                                 <div class="form-group row align-items-center mt-2 mr-2">
                                                     <label class="col-form-label col-2 ml-4" for="timepicker">출근시간 <span class="text-danger">*</span></label>
                                                     <div class="col-2">
@@ -135,6 +148,7 @@
                                                                  placeholder="내용을 입력해주세요"
                                                                  style="max-width:750px;width: 100%; margin-bottom: 2px" required></textarea>
                                                         </div>
+
                                                         <div class="form-validation">
                                                             <br>
                                                             <h5>요청사항</h5>
@@ -616,5 +630,6 @@
             }
         });
     </script>
+    <script src="/css/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 </th:block>
 </html>

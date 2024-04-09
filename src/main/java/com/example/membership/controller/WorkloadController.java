@@ -73,4 +73,18 @@ public class WorkloadController {
             throw new RuntimeException(e);
         }
     }
+
+    @PostMapping("/saveEdit")
+    public ResponseEntity<?> saveEdit(@RequestHeader("Authorization") String authorizationHeader,@RequestBody WorkDTO workDTO){
+        String token = authorizationHeader.replace("Bearer","");
+
+        String apiAddress = service.ApiAddress();
+        WorkDTO responseDTO = service.saveEdit(apiAddress,workDTO,token);
+
+        if (responseDTO != null){
+            return ResponseEntity.ok(responseDTO);
+        }else {
+            return ResponseEntity.status(500).body("서비스 처리중 오류가 발생했습니다");
+        }
+    }
 }

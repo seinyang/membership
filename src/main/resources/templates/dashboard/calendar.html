@@ -43,9 +43,9 @@
                                             1
                                         </td>
                                         <td class="data">
-                                            총 출근일수
+                                            전체출근일수
                                         </td>
-                                        <td class="duration">
+                                        <td id="totalDaysCell" class="duration">
                                         </td>
                                     </tr>
                                     <tr>
@@ -55,7 +55,7 @@
                                         <td class="data">
                                             <span class="table-badge badge-pill badge-success text-dark"> 정상출근</span>
                                         </td>
-                                        <td class="duration">
+                                        <td id="normalAttendanceCell" class="duration">
                                         </td>
                                     </tr>
                                     <tr>
@@ -65,7 +65,7 @@
                                         <td class="data">
                                             <span class="table-badge badge-pill badge-warning">정상퇴근</span>
                                         </td>
-                                        <td class="duration">
+                                        <td id="normalLeaveCell" class="duration">
                                         </td>
                                     </tr>
                                     <tr>
@@ -75,7 +75,7 @@
                                         <td class="data">
                                             <span class="table-badge badge-pill badge-danger text-dark">지각</span>
                                         </td>
-                                        <td class="duration">
+                                        <td id="lateCell" class="duration">
                                         </td>
                                     </tr>
                                     <tr>
@@ -85,7 +85,7 @@
                                         <td class="data">
                                             <span class="table-badge badge-pill badge-primary text-dark">조퇴</span>
                                         </td>
-                                        <td class="duration">
+                                        <td id="earlyLeaveCell" class="duration">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -101,17 +101,17 @@
             </div>
     </div><!--row-->
 </div><!--container-->
-
+    <script src="/assets/calendar.js"></script>
+    <script src="/js/fullcalendar/calendar/fullcalendar.min.js"></script>
 
 <script src="/js/fullcalendar/packages/moment/moment.js"></script>
 
-    <script src="/assets/calendar.js"></script>
+
 
     <script src="/js/fullcalendar/dist/index.global.min.js"></script>
 
     <script src="/js/fullcalendar/packages/core/locales-all.global.min.js"></script>
 
-    <script src="/js/fullcalendar/calendar/fullcalendar.min.js"></script>
 
 
 
