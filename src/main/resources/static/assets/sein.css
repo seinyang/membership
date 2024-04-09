@@ -89,11 +89,11 @@
 /* 캘린더 컨테이너 스타일 */
 #calendar-container {
     width: 100%;
-    padding: 30px;
+    margin: 33px 31px 34px 130px;
     box-sizing: border-box;
     overflow-x: hidden; /* 가로 스크롤 숨김 */
     overflow-y: hidden;
-    margin-left: 68px;
+
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
     font-size: 14px;
     bottom: 48px;
@@ -118,25 +118,27 @@
 /*뱃지*/
 .badges{
     display: flex;
-    flex-direction: column;
-    margin: 64px auto 234px 69px;
+    flex-direction: row;
+    margin: 87px auto 234px 69px;
+    top: 121px;
+    right: 8px;
+    align-items: center;
+}
 
-}
-.badges > * {
-    margin: 10px 0; /* 위아래 간격을 10px로 설정 */
-}
 .badge{
-    width: 227px; /* 너비 설정 */
-    line-height: 35px; /* 높이 설정 */
+    width: 150px; /* 너비 설정 */
+    line-height: 27px; /* 높이 설정 */
+    margin-right: 17px;
 }
 
 /*근태현황 테이블 */
 .attendance{
     width: 100%;
     display: flex;
-    top: -197px;
+    top: -89px;
     height: 0;
     align-items: center;
+    left: 56px;
 }
 .table{
     border-collapse: collapse!important
