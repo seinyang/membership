@@ -10,9 +10,4 @@ public class Controller {
 
         return "index";
     }
-
-
-
-
-
 }

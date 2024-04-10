@@ -20,7 +20,6 @@ public class LoginController {
 
     private final LoginService loginService;
 
-
     @GetMapping("/login")
     public String login(){
         return "login/login";
@@ -41,12 +40,12 @@ public class LoginController {
         }
     }
 
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         // 현재 세션 무효화
         request.getSession().invalidate();
         // 로그아웃 후 로그인 페이지로 이동
         return "redirect:/login";
-
     }
 }

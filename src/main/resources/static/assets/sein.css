@@ -2,17 +2,19 @@
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
 /*로그인*/
 .login-content{
     margin: 100px 0;
-
 }
+
 .login-form{
     background: #ffffff;
     padding: 30px 30px 20px;
     border-radius: 10px;
     margin-top: 35px;
 }
+
 .login-logo{
     text-align: center;
     margin-bottom: 15px;
@@ -39,7 +41,6 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 
 .nav-css{
     position: fixed;
@@ -108,6 +109,7 @@
 .fc-day-sat a {
     color: blue;
 }
+
 /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
 .fc-header-toolbar {
     padding-top: 1em;
@@ -140,10 +142,11 @@
     align-items: center;
     left: 56px;
 }
+
 .table{
     border-collapse: collapse!important
-
 }
+
 .table td,
 .table th {
     background-color: #fff!important;
@@ -162,6 +165,7 @@ td.data{
     width: 50%;
     white-space: nowrap;
 }
+
 .table th.duration,
 td.duration{
     width: 34%;
@@ -174,7 +178,6 @@ td.duration{
 }
 
 #status{
-
     overflow-y: hidden;
 }
 
@@ -184,3 +187,4 @@ td.duration{
     transform: translateX(-50%);
     bottom: 0;
 }
+

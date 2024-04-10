@@ -38,9 +38,13 @@ public class Service {
         this.restTemplate = restTemplate;
         this.serverAddress = serverAddress;
     }
+
+
     //업무 저장
     public WorkDTO save(WorkDTO workDTO, String token) {
+
         String apiAddress = serverAddress + "/api/Job/WorkHistorySave";
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 
@@ -52,6 +56,7 @@ public class Service {
                     HttpMethod.POST,
                     requestEntity,
                     WorkDTO.class);
+
             return responseEntity.getBody();
         } catch (RestClientResponseException ex) {
             // 다른 서비스 오류 시 null 반환
@@ -66,6 +71,7 @@ public class Service {
 
     // 근무내용 수정
     public WorkDTO saveEdit(String apiAddress, WorkDTO workDTO, String token) {
+
         apiAddress = serverAddress + "/api/Job/WorkHistoryEdit";
 
         var headers = new HttpHeaders();
@@ -98,6 +104,7 @@ public class Service {
 
 
     public WorkDTO processFormatData(WorkDTO workDTO) {
+
         workDTO.setFormattedDate(formatDateString(workDTO.get작성날짜()));
 
         return workDTO;
@@ -105,6 +112,7 @@ public class Service {
 
 
     public String formatDateString(String dateString) {
+
         try {
             // JSON 형식의 데이터인 경우 {"value":"0"}와 같은 형태의 데이터가 포함될 수 있으므로 확인
             if (dateString.startsWith("{")) {
@@ -127,6 +135,7 @@ public class Service {
         }
     }
 
+
     // 달력 월별 데이터 뿌리기(list로 묶어서뿌려줘야함)
     public List<WorkDTO> CalenderMonth(String inputDate, String token) {
         String apiAddress = serverAddress + "/api/Job/WorkHistory-Month?inpuDate=" + inputDate;
@@ -135,6 +144,7 @@ public class Service {
 
 
     public List<WorkDTO> getMonthData(String apiAddress, String token) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 
@@ -174,6 +184,7 @@ public class Service {
         }
     }
 
+
     // 달력에 이벤트 클릭시 해당일의 데이터를 그대로 가져와 수정(이건 데이터 하나씩 받아야해서 list쓰면안됨)
     public WorkDTO CalenderDay(String inputDate, String token) {
         String apiAddress = serverAddress + "/api/Job/WorkHistory-Day?inpuDate=" + inputDate;
@@ -181,8 +192,10 @@ public class Service {
         return getDayData(apiAddress, token);
     }
 
+
     // 일간 데이터 가져오기
     private WorkDTO getDayData(String apiAddress, String token) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 
@@ -220,8 +233,10 @@ public class Service {
         }
     }
 
+
     //근무 상태
     public state AttendState(String inputDate,String token) {
+
         String apiAddress = serverAddress + "/api/Job/AttendState?inpuDate=" + inputDate;
 
         HttpHeaders headers = new HttpHeaders();
@@ -256,8 +271,10 @@ public class Service {
 
     }
 
+
     //당일 처리항목
     public CompletedDTO getCompleted(String inputDate, String token) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 
@@ -282,8 +299,10 @@ public class Service {
         }
     }
 
+
     //오늘 처리 개수
     public ProcessingDTO getProcessing(String inputDate, String token) {
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 

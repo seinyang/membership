@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RequiredArgsConstructor
 @Controller
 public class WorkloadController {
@@ -23,6 +25,7 @@ public class WorkloadController {
         return "dashboard/workload";
 
     }
+
 
     @PostMapping("/workload")
     public ResponseEntity<?> workSave(@RequestHeader("Authorization") String authorizationHeader, @RequestBody WorkDTO workDTO) {
@@ -56,6 +59,7 @@ public class WorkloadController {
         }
     }
 
+
     //오늘처리갯수
     @GetMapping("/processing")
     public ResponseEntity<ProcessingDTO> getProccessing(@RequestHeader("Authorization") String authorizationHeader,@RequestParam(name = "inputDate") String inputDate){
@@ -73,6 +77,7 @@ public class WorkloadController {
             throw new RuntimeException(e);
         }
     }
+
 
     @PostMapping("/saveEdit")
     public ResponseEntity<?> saveEdit(@RequestHeader("Authorization") String authorizationHeader,@RequestBody WorkDTO workDTO){
