@@ -1,4 +1,3 @@
-
 //스마트 에디터
 let oEditors = []
 
@@ -13,13 +12,13 @@ smartEditor = function () {
 }
 
 
-    smartEditor()
-    // business textarea의 내용을 에디터에 설정
-    const businessTextarea = document.getElementById('business');
-    if (businessTextarea) {
-        const businessContent = businessTextarea.value;
-        oEditors.getById["editorTxt"].exec("PASTE_HTML", [businessContent]);
-    }
+smartEditor()
+// business textarea의 내용을 에디터에 설정
+const businessTextarea = document.getElementById('business');
+if (businessTextarea) {
+    const businessContent = businessTextarea.value;
+    oEditors.getById["editorTxt"].exec("PASTE_HTML", [businessContent]);
+}
 
 
 function adjustCardHeight() {
@@ -64,3 +63,10 @@ if (window.location.pathname === "/workload") {
     document.write('<script src="/css/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>');
 }
 
+
+    $(document).ready(function(){
+    $('.nav-link').click(function () {
+        $('.nav-link').removeClass('active'); // 모든 탭에서 active 클래스 제거
+        $(this).addClass('active'); // 클릭한 탭에 active 클래스 추가
+    });
+});
