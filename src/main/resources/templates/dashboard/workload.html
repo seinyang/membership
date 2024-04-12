@@ -190,7 +190,7 @@
         </div><!--col-->
     </div><!--row-->
 </div><!--container-->
-  <!--  <script>
+    <script>
         document.getElementById("cancelButton").addEventListener("click", function() {
             var isConfirmed = confirm("데이터가 저장되지 않았습니다. 정말로 취소하시겠습니까?");
 
@@ -200,22 +200,26 @@
 
             }
         });
-        document.getElementById("saveButton").addEventListener("click", function (event) {
+        window.onbeforeunload = function() {};
 
+
+        document.getElementById("saveButton").addEventListener("click", function (event) {
             var isConfirmed2 = confirm("데이터를 저장하시겠습니까?");
 
             // 업무내용 검사
             var businessContent = document.getElementById("editorTxt").value.trim();
-            if (businessContent === "") {
-                alert("업무내용을 입력하세요.");
-                event.preventDefault(); // 저장하기 동작을 막음
-            } else if (isConfirmed2) {
+
+            // 업무 내용이 비어 있는지 확인하고 경고 메시지 표시
+            businessContent.trim() === "" && event.preventDefault();
+
+            // 업무 내용이 비어 있지 않고, 저장 확인이 되었을 때 요청을 처리
+            if (businessContent.trim() !== "" && isConfirmed2) {
                 // 요청 성공 시 응답을 처리합니다.
-                window.location.href = '/calender';
+                window.location.href = '/calendar';
                 alert('근무 기록이 성공적으로 저장되었습니다.');
             }
         });
-    </script>-->
+    </script>
     <!-- 출근시간 -->
     <script>
         $('#timepicker').timepicker({
