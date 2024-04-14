@@ -3,6 +3,183 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout" lang="kr">
 <th:block layout:fragment="content">
+    <link href="/assets/style.css" rel="stylesheet">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h3 class="box-title m-b-30">업무일지 작성</h3>
+                    <form id="workHistoryForm" action="/workload" method="post">
+                        <div class="form-group" hidden>
+                            <label class="col-xs-1 col-form-label" for="userId" id="userIdLabel">사용자ID <span class="text-danger">*</span></label>
+                            <div class="col-lg-8" id="userIdContainer">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" id="userId" name="userId" required value="001" readonly>
+                                    </div>
+                                </div><!--row-->
+                            </div><!--col-->
+                        </div><!--사용자 ID form-group-->
+                        <div class="form-group" >
+                            <label for="date" class="col-sm-3 control-label">작성 날짜<span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)"></div>
+                        </div><!--작성날짜 form-group-->
+                        <script>
+                            // 현재 날짜를 가져오는 함수
+                            function getCurrentDate() {
+                                const now = new Date();
+                                const year = now.getFullYear();
+                                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                                const day = now.getDate().toString().padStart(2, '0');
+                                return `${year}-${month}-${day}`;
+                            }
 
+                            // 작성 날짜 입력 필드에 현재 날짜 설정
+                            document.getElementById('date').value = getCurrentDate();
+                        </script>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg">
+                                    <label for="timepicker" class="col-xl col-lg col-md col-sm-6 control-label">출근시간 <span class="text-danger">*</span></label>
+                                    <div class="col-lg col-md-10 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="timepicker" name="startTime" required value="09:00">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" id="normalWorkButton">정상 출근</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="lateTime" class="col-xl col-lg col-md col-sm-6 control-label">지각시간 <span class="text-danger">*</span></label>
+                                    <div class="col-lg col-md-10 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="increaseBtn">+</button>
+                                                <button class="btn btn-primary" type="button" id="decreaseBtn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!--col-->
+                            </div><!--row-->
+                        </div><!--출근시간,지각시간 form group-->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg">
+                                    <label for="timepickerEndTime" class="col-xl col-lg col-md col-sm-6 control-label">퇴근시간<span class="text-danger">*</span></label>
+                                    <div class="col-lg col-md-10 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="timepickerEndTime" name="endTime" required value="09:00">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" id="leaveWorkButton">정상 퇴근</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="earlyLeaveTime" class="col-xl col-lg col-md col-sm-6 control-label">조퇴시간<span class="text-danger">*</span></label>
+                                    <div class="col-lg col-md-10 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="increaseEarlyLeaveBtn">+</button>
+                                                <button class="btn btn-primary" type="button" id="decreaseEarlyLeaveBtn">-</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!--col-->
+                            </div><!--row-->
+                        </div><!--퇴근시간,조퇴시간 form group-->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="col-lg-6">
+                                            <div class="form-validation">
+                                                <h3>당일 처리 항목</h3><br>
+                                            </div>
+                                            <div id="todayItemContainer">
+                                                <div class="form-group">
+                                                    <label for="dailyItemCount">처리개수<br></label>
+                                                    <div class="number-box" id="dailyItemCount"></div>
+                                                </div>
+                                                <div class="form-group mt-5">
+                                                    <label for="dailyDuration">소요시간합계</label>
+                                                    <div class="number-box" id="dailyDuration"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="col-lg-6">
+                                            <label for="lateTime1" class="col-xl col-lg col-md col-sm-6 control-label">지각시간 <span class="text-danger">*</span></label>
+                                            <div class="col-lg col-md-10 col-sm-6">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="lateTime1" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" type="button" id="increaseBtn1">+</button>
+                                                        <button class="btn btn-primary" type="button" id="decreaseBtn1">-</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!--col-->
+                                    </div><!--card-body-->
+                                </div><!--card-->
+                            </div><!--row-->
+                        </div><!--당일 처리,오늘 작업 form-group-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <div class="checkbox checkbox-success">
+                                    <input id="checkbox33" type="checkbox">
+                                    <label for="checkbox33">Check me out !</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Sign in</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h3 class="box-title m-b-0">Sample Basic Forms</h3>
+                    <p class="text-muted m-b-30 font-13"> Bootstrap Elements </p>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">User Name</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username"> </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email"> </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword3">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password"> </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword4">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Confirm Password"> </div>
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-success">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label for="checkbox1"> Remember me </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+                                <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </th:block>
 </html>
