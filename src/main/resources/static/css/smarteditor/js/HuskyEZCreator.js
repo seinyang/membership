@@ -69,15 +69,16 @@ nhn.husky.EZCreator = new (function(){
 			
 			try{
 			
-				nEditorWidth = elIFrame.contentWindow.document.body.scrollWidth || "500px";
-				nEditorHeight = elIFrame.contentWindow.document.body.scrollHeight + 12;
+				nEditorWidth = elIFrame.contentWindow.document.body.scrollWidth || "30px";
+				nEditorHeight = elIFrame.contentWindow.document.body.scrollHeight + 7;
 				elIFrame.style.width =  "100%";
+				elPlaceHolder.style.width = "100%";
 				elIFrame.style.height = nEditorHeight+ "px";
 				elIFrame.contentWindow.document.body.style.margin = "0";
 			}catch(e){
 				nhn.husky.EZCreator.hideBlocker(true);
 				elIFrame.style.border = "5px solid red";
-				elIFrame.style.width = "500px";
+				elIFrame.style.width = "300px";
 				elIFrame.style.height = "500px";
 				alert("Failed to access "+sSkinURI);
 				return;

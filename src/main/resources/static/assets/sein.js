@@ -59,14 +59,16 @@ window.onload = adjustCardHeight;
 window.onresize = adjustCardHeight;
 
 
-if (window.location.pathname === "/workload") {
-    document.write('<script src="/css/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>');
-}
 
+$(document).ready(function(){
+    // 현재 URL 경로 확인
+    var path = window.location.pathname;
 
-    $(document).ready(function(){
-    $('.nav-link').click(function () {
-        $('.nav-link').removeClass('active'); // 모든 탭에서 active 클래스 제거
-        $(this).addClass('active'); // 클릭한 탭에 active 클래스 추가
+    // 각 메뉴 항목에 대해 현재 URL과 일치하는 경우 활성화
+    $('.navbar-nav .nav-link').each(function(){
+        var href = $(this).attr('href');
+        if (path === href) {
+            $(this).addClass('active');
+        }
     });
 });

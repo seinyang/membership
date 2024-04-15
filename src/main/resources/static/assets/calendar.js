@@ -11,7 +11,7 @@ $(document).ready(function() {
     const token = tokenCookie ? tokenCookie.split('=')[1] : null;
 
     // calendar element 취득
-    var calendarEl = $('#calendar')[0];
+    var calendarEl = $('#calendars')[0];
 
     // full-calendar 생성하기
     const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -289,4 +289,16 @@ $(document).ready(function() {
         document.getElementById('earlyLeaveCell').textContent = totalEarlyLeaveDays;
     }
 
+});
+$(document).ready(function(){
+    // 현재 URL 경로 확인
+    var path = window.location.pathname;
+
+    // 각 메뉴 항목에 대해 현재 URL과 일치하는 경우 활성화
+    $('.navbar-nav .nav-link').each(function(){
+        var href = $(this).attr('href');
+        if (path === href) {
+            $(this).addClass('active');
+        }
+    });
 });

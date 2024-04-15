@@ -32,7 +32,7 @@ public class LoginController {
         AuthDTO responseDTO = loginService.login(loginRequest);
 
         if (responseDTO != null){
-           //로그인 성공시 제이슨 형식으로 응답
+            //로그인 성공시 제이슨 형식으로 응답
             return ResponseEntity.ok(responseDTO);
         }else {
             //로그인 실패시 json형식 실패 상태와 메시지를 응답한다

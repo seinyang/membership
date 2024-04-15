@@ -4,6 +4,7 @@
       layout:decorate="layout" lang="kr">
 <th:block layout:fragment="content">
 <!-- 근태현황 테이블,뱃지,calendar -->
+    <section id="calendar">
 <div class="container-fluid" id="status">
     <div class="row">
         <div class="col-lg-3 col-md-5 col-sm-3 col-xs-1">
@@ -97,24 +98,15 @@
             </div><!--row-->
         </div><!--col-->
             <div class="col mr-3" id='calendar-container'>
-                <div id='calendar'></div>
+                <div id='calendars'></div>
             </div>
     </div><!--row-->
 </div><!--container-->
     <script src="/assets/calendar.js"></script>
     <script src="/js/fullcalendar/calendar/fullcalendar.min.js"></script>
-
-<script src="/js/fullcalendar/packages/moment/moment.js"></script>
-
-
-
+    <script src="/js/fullcalendar/packages/moment/moment.js"></script>
     <script src="/js/fullcalendar/dist/index.global.min.js"></script>
-
     <script src="/js/fullcalendar/packages/core/locales-all.global.min.js"></script>
-
-
-
-
-
+</section>
 </th:block>
 </html>

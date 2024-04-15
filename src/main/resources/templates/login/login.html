@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-    <meta charset="UTF-8">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/sein.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <meta charset="UTF-8"> <!-- 추가할부분 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link href="/assets/sein.css" rel="stylesheet" type="text/css">
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <title>로그인 페이지</title>
-
 </head>
 <body class="bg-primary">
 <div class="container-fluid">
@@ -19,7 +20,7 @@
                         </a>
                     </div>
                     <div class="login-form">
-                    <form>
+                    <form id="loginForm" action="/login" method="post">
                         <div class="form-group">
                             <label for="userId">사용자 이름</label>
                             <input type="text" class="form-control" id="userId">
@@ -32,7 +33,7 @@
                             <input type="checkbox" class="form-check-input" id="forgetCheck">
                             <label class="form-check-label" for="forgetCheck">아이디 기억하기</label>
                         </div>
-                        <button type="button" class="btn btn-primary btn-block my-5 py-2" onclick="login()">로그인</button>
+                        <button type="submit" class="btn btn-primary btn-block my-5 py-2">로그인</button>
                     </form>
                         <div class="social-login-content">
                             <div class="social-button">
@@ -52,7 +53,11 @@
     </div>
 
 <script>
-    async function login() {
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 제출 동작 막기
+        submitProcessForm(); // 폼 제출 시 submitProcessForm 함수 호출
+    });
+    async function submitProcessForm() {
         const userId = document.getElementById('userId').value;
         const password = document.getElementById('password').value;
 
@@ -99,8 +104,9 @@
         }
     }
 </script>
-<script src="/js/bootstrap.bundle.min.js"></script>
+
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/77f56f6c86.js" crossorigin="anonymous"></script>
 </body>
 </html>
