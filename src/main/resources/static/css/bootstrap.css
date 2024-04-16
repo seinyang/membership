@@ -1992,7 +1992,7 @@ pre code {
 
 .table-responsive {
   display: block;
-  width: 100%;
+  width: 126%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }

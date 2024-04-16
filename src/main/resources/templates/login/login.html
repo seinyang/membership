@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
-    <meta charset="UTF-8"> <!-- 추가할부분 -->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
-    <link href="/assets/sein.css" rel="stylesheet" type="text/css">
-    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/sein.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <title>로그인 페이지</title>
 </head>
 <body class="bg-primary">
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-6">
-                <div class="login-content">
-                    <div class="login-logo">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="" >
                         <a href="">
                             <i class="fa-solid fa-house fa-2xl mr-5" style="color: #ffffff;"></i>
                         </a>
-                    </div>
-                    <div class="login-form">
-                    <form id="loginForm" action="/login" method="post">
+                    </a>
+                </div>
+                <div class="login-form">
+                    <form>
                         <div class="form-group">
                             <label for="userId">사용자 이름</label>
                             <input type="text" class="form-control" id="userId">
@@ -33,34 +33,28 @@
                             <input type="checkbox" class="form-check-input" id="forgetCheck">
                             <label class="form-check-label" for="forgetCheck">아이디 기억하기</label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block my-5 py-2">로그인</button>
+                        <button type="button" class="btn btn-primary btn-block my-5 py-2" onclick="login()">로그인</button>
                     </form>
-                        <div class="social-login-content">
-                            <div class="social-button">
-                                <button id="" href="javascript:void(0)" class="btn btn-warning fa-solid fa-comment btn-block py-2">
-                                    <span>카카오 로그인</span>
-                                </button>
-                                <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="btn btn-success btn-block py-2 ">
-                                    <i class="fa-solid fa-n" style="color: #33e648;"></i>
-                                    <span>네이버 로그인</span>
-                                </a>
-                            </div>
+                    <div class="social-login-content">
+                        <div class="social-button">
+                            <button id="" href="javascript:void(0)" class="btn btn-warning fa-solid fa-comment btn-block py-2">
+                                <span>카카오 로그인</span>
+                            </button>
+                            <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="btn btn-success btn-block py-2 ">
+                                <i class="fa-solid fa-n" style="color: #33e648;"></i>
+                                <span>네이버 로그인</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // 기본 제출 동작 막기
-        submitProcessForm(); // 폼 제출 시 submitProcessForm 함수 호출
-    });
-    async function submitProcessForm() {
+    async function login() {
         const userId = document.getElementById('userId').value;
         const password = document.getElementById('password').value;
-
         try {
             const response = await fetch('/login', {
                 method: 'POST',
@@ -70,32 +64,26 @@
                 },
                 body: JSON.stringify({ userId, password }),
             });
-
             const contentType = response.headers.get('Content-Type');
-
             if (response.ok) {
                 if (contentType && contentType.includes('application/json')) {
                     const data = await response.json();
-
                     console.log('사용자 ID:', data.userId);
                     console.log('사용자 이름:', data.userName);
                     console.log('토큰:', data.token);
                     console.log('사용자 식별자:', data.uid);
-
                     document.cookie = `token=${data.token}; path=/;`;
                     window.location.href = '/';
                 } else {
                     console.error('서버 응답이 JSON 형식이 아닙니다. Content-Type:', contentType);
                     const textData = await response.text();
                     console.error('서버 응답 내용:', textData);
-
                     alert('서버 응답이 JSON 형식이 아닙니다.');
                 }
             } else {
                 console.error('서버 응답이 JSON 형식이 아닙니다. Status:', response.status);
                 const textData = await response.text();
                 console.error('서버 응답 내용:', textData);
-
                 alert('아이디나 패스워드가 틀렸습니다.');
             }
         } catch (error) {
@@ -104,9 +92,8 @@
         }
     }
 </script>
-
-<script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/77f56f6c86.js" crossorigin="anonymous"></script>
 </body>
 </html>
