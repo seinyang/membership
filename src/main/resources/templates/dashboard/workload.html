@@ -4,7 +4,6 @@
       layout:decorate="layout" lang="kr">
 <th:block layout:fragment="content">
     <section id="workload">
-        <link href="/assets/style.css" rel="stylesheet">
         <div class="container-fluid">
             <form id="workHistoryForm" action="/workload" method="post">
                 <div class="row">
@@ -76,7 +75,7 @@
                                         <label for="timepickerEndTime" class="col-xl col-lg col-md col-sm-6 control-label">퇴근시간<span class="text-danger">*</span></label>
                                         <div class="col-lg col-md-10 col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="timepickerEndTime" name="endTime" required value="09:00">
+                                                <input type="text" class="form-control" id="timepickerEndTime" name="endTime" required value="18:00">
                                                 <span class="input-group-btn ">
                                                 <button class="btn btn-primary" type="button" id="leaveWorkButton">정상 퇴근</button>
                                                 </span>
