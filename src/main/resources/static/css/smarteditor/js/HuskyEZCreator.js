@@ -70,10 +70,11 @@ nhn.husky.EZCreator = new (function(){
 			try{
 			
 				nEditorWidth = elIFrame.contentWindow.document.body.scrollWidth || "30px";
-				nEditorHeight = elIFrame.contentWindow.document.body.scrollHeight + 7;
+				nEditorHeight = elIFrame.contentWindow.document.body.scrollHeight + 2;
 				elIFrame.style.width =  "100%";
 				elPlaceHolder.style.width = "100%";
 				elIFrame.style.height = nEditorHeight+ "px";
+				elPlaceHolder.style.bottom = (nEditorHeight - 20) + "px";
 				elIFrame.contentWindow.document.body.style.margin = "0";
 			}catch(e){
 				nhn.husky.EZCreator.hideBlocker(true);

@@ -2,6 +2,8 @@
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/sein.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
@@ -12,13 +14,13 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="login-content">
-                <div class="login-logo">
+              <!--  <div class="login-logo">
                     <a href="" >
                         <a href="">
                             <i class="fa-solid fa-house fa-2xl mr-5" style="color: #ffffff;"></i>
                         </a>
                     </a>
-                </div>
+                </div>-->
                 <div class="login-form">
                     <form>
                         <div class="form-group">
@@ -68,6 +70,7 @@
             if (response.ok) {
                 if (contentType && contentType.includes('application/json')) {
                     const data = await response.json();
+                    console.log('서버 응답 데이터:', data); // 응답 데이터 콘솔 출력
                     console.log('사용자 ID:', data.userId);
                     console.log('사용자 이름:', data.userName);
                     console.log('토큰:', data.token);
