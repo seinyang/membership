@@ -1995,6 +1995,7 @@ pre code {
   width: 126%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  padding: 0 103px 0 103px;
 }
 
 .table-responsive > .table-bordered {
@@ -4795,7 +4796,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+
   border-radius: 0.25rem;
 }
 

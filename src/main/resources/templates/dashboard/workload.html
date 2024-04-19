@@ -4,10 +4,10 @@
       layout:decorate="layout" lang="kr">
 <th:block layout:fragment="content">
     <section id="workload">
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <form id="workHistoryForm" action="/workload" method="post">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row box">
+                    <div class="col-md-6 ss1">
                         <div class="white-box">
                             <h3 class="box-title m-b-30">업무일지 작성</h3>
                             <div class="form-group" hidden>
@@ -21,10 +21,10 @@
                                 </div><!--col-->
                             </div><!--사용자 ID form-group-->
                             <div class="form-group" >
-                                <label for="date" class="col-sm-3 control-label">작성 날짜<span class="text-danger">*</span></label>
+                                <label for="date" class="col-sm-4 control-label">작성 날짜<span class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)"></div>
-                            </div><!--작성날짜 form-group-->
+                                    <input type="date" class="form-control" style="max-width: 250px" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)"></div>
+                                </div><!--작성날짜 form-group-->
                             <script>
                                 // 현재 날짜를 가져오는 함수
                                 function getCurrentDate() {
@@ -44,7 +44,7 @@
                                         <label for="timepicker" class="col-xl col-lg col-md col-sm-6 control-label">출근시간 <span class="text-danger">*</span></label>
                                         <div class="col-lg col-md-10 col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="timepicker" name="startTime" required value="09:00">
+                                                <input type="text" class="form-control mr-2" style="min-width:47px; max-width: 250px" id="timepicker" name="startTime" required value="09:00">
                                                 <span class="input-group-btn">
                                                 <button class="btn btn-primary" type="button" id="normalWorkButton">정상 출근</button>
                                                 </span>
@@ -52,10 +52,10 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="lateTime" class="col-xl col-lg col-md col-sm-6 control-label">지각시간 <span class="text-danger">*</span></label>
+                                        <label for="lateTime" class="col-xl col-lg col-md control-label">지각시간 <span class="text-danger">*</span></label>
                                         <div class="col-lg col-md-10 col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                                <input type="text" class="form-control mr-2" style="min-width:47px; max-width: 250px" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
                                                 <div class=" time-button-container">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary" type="button" id="increaseBtn">+</button>
@@ -75,7 +75,7 @@
                                         <label for="timepickerEndTime" class="col-xl col-lg col-md col-sm-6 control-label">퇴근시간<span class="text-danger">*</span></label>
                                         <div class="col-lg col-md-10 col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="timepickerEndTime" name="endTime" required value="18:00">
+                                                <input type="text" class="form-control mr-2" style="min-width:47px; max-width: 250px" id="timepickerEndTime" name="endTime" required value="18:00">
                                                 <span class="input-group-btn ">
                                                 <button class="btn btn-primary" type="button" id="leaveWorkButton">정상 퇴근</button>
                                                 </span>
@@ -86,12 +86,12 @@
                                         <label for="earlyLeaveTime" class="col-xl col-lg col-md col-sm-6 control-label">조퇴시간<span class="text-danger">*</span></label>
                                         <div class="col-lg col-md-10 col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
+                                                <input type="text" class="form-control mr-2" style="min-width:47px; max-width: 250px" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);">
                                                 <div class=" time-button-container">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary" type="button" id="increaseEarlyLeaveBtn">+</button>
                                                 </span>
-                                                    <span class="input-group-btn ml-2">
+                                                <span class="input-group-btn ml-2">
                                                     <button class="btn btn-primary" type="button" id="decreaseEarlyLeaveBtn">-</button>
                                                 </span>
                                                 </div>
@@ -146,7 +146,7 @@
                             </div><!--당일 처리,오늘 작업 form-group-->
                         </div><!--white box-->
                     </div><!--col-6-->
-                    <div class="col-md-6">
+                    <div class="col-md-6 ss2">
                         <div class="white-box">
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -158,7 +158,7 @@
                                         <textarea name="editorTxt" id="editorTxt"
                                                   rows="2" cols="5"
                                                   placeholder="내용을 입력해주세요"
-                                                  style="max-width:750px;width: 100%; margin-bottom: 2px; overflow-y: auto; min-height: 10px" required></textarea>
+                                                  style="max-width:750px;width: 100%; margin-bottom: 2px; overflow-y: auto; min-height: 3px" required></textarea>
                                     </div>
                                     <div class="form-validation">
                                         <br>

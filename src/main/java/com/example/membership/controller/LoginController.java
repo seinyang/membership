@@ -1,5 +1,6 @@
 package com.example.membership.controller;
 
+import com.example.membership.config.ErrorResponse;
 import com.example.membership.dto.login.AuthDTO;
 import com.example.membership.dto.login.LoginRequest;
 import com.example.membership.service.LoginService;
@@ -25,7 +26,6 @@ public class LoginController {
         return "login/login";
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<?> processLogin(@RequestBody LoginRequest loginRequest){
 
@@ -34,11 +34,13 @@ public class LoginController {
         if (responseDTO != null){
             //로그인 성공시 제이슨 형식으로 응답
             return ResponseEntity.ok(responseDTO);
-        }else {
-            //로그인 실패시 json형식 실패 상태와 메시지를 응답한다
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디나 패스워드가 틀렸습니다");
+        } else {
+            //로그인 실패시 ErrorResponse 객체를 생성하여 반환
+            ErrorResponse errorResponse = new ErrorResponse("아이디나 패스워드가 틀렸습니다");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
+
 
 
     @GetMapping("/logout")
