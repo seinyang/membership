@@ -51,12 +51,13 @@
 </div>
 <script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // 기본 제출 동작 막기
+
         submitProcessForm(); // 폼 제출 시 submitProcessForm 함수 호출
     });
     async function submitProcessForm() {
-        const userId = document.getElementById('userId').value;
-        const password = document.getElementById('password').value;
+
+        const userId = document.getElementById('userId').value; // 수정된 부분
+        const password = document.getElementById('password').value; // 수정된 부분
 
         try {
             const response = await fetch('/login', {
