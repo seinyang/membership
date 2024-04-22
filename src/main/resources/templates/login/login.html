@@ -51,7 +51,7 @@
 </div>
 <script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
-
+        event.preventDefault();
         submitProcessForm(); // 폼 제출 시 submitProcessForm 함수 호출
     });
     async function submitProcessForm() {
