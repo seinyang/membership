@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @RequiredArgsConstructor
@@ -27,11 +28,13 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> processLogin(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> processLogin(@RequestBody LoginRequest loginRequest, HttpSession session){
 
         AuthDTO responseDTO = loginService.login(loginRequest);
 
         if (responseDTO != null){
+            // 로그인 성공시 세션에 사용자 정보 저장
+            session.setAttribute("userId", responseDTO.getUserId());
             //로그인 성공시 제이슨 형식으로 응답
             return ResponseEntity.ok(responseDTO);
         } else {

@@ -11,6 +11,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/css/**", "/js/**"); // 로그인 페이지와 정적 리소스는 예외로 처리
+                .excludePathPatterns("/login", "/css/**", "/js/**","/assets/**"); // 로그인 페이지와 정적 리소스는 예외로 처리
     }
 }
