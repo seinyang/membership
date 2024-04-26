@@ -36,8 +36,8 @@ function createSEditor2(elIRField, htParams, elSeAppContainer){
 	}
 
 	var htDimension = {
-		nMinHeight:70,
-		nMinWidth:parseInt(elIRField.style.minWidth, 10)||70,
+		nMinHeight:80,
+		nMinWidth:parseInt(elIRField.style.minWidth, 10)||80,
 		nHeight:elIRField.style.height||elIRField.offsetHeight,
 		nWidth:elIRField.style.width||elIRField.offsetWidth
 	};

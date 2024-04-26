@@ -1696,7 +1696,7 @@ label {
 }
 
 .form-group {
-    margin-bottom: 11px
+    margin-bottom: 11px;
 }
 
 .list-group-item,
@@ -5860,7 +5860,7 @@ ul.list-icons li i {
     border: 1px solid #e5ebec;
     border-radius: 4px;
     height: 98%;
-    margin-top: 6px;
+    margin-top: 11px;
     margin-right: -21px;
 }
 .white-box2 {
@@ -5870,7 +5870,7 @@ ul.list-icons li i {
     border: 1px solid #e5ebec;
     border-radius: 4px;
     height: 98%;
-    margin-top: 6px;
+    margin-top:11px;
 }
 /* 화면 크기가 777x885 이하인 경우에만 적용 */
 @media (max-width: 767px){
@@ -5903,11 +5903,11 @@ ul.list-icons li i {
         margin-top: 0;
     }
 }
-.white-box .box-title {
-    margin: 10px 0 12px;
+.box-title {
+    margin: 10px 0 10px;
     font-weight: 600;
     font-size: 18px;
-
+    white-space: normal; /* 텍스트가 너무 길면 자동으로 줄바꿈되도록 설정합니다. */
 }
 
 .info-box {

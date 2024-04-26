@@ -92,6 +92,12 @@
     margin-right: 5px;
 }
 
+@media screen and (max-width: 1410px) {
+    .bottoms {
+        margin-top: 30px; /* 원하는 마진 값을 지정합니다. */
+    }
+}
+
 /*달력*/
 #calendars {
     max-width: 1100px;

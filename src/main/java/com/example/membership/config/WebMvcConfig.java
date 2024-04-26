@@ -1,4 +1,3 @@
-/*
 package com.example.membership.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -14,4 +13,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login", "/css/**", "/js/**","/assets/**"); // 로그인 페이지와 정적 리소스는 예외로 처리
     }
-}*/
+}

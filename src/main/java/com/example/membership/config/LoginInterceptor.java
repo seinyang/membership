@@ -1,4 +1,3 @@
-/*
 package com.example.membership.config;
 
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -37,4 +36,4 @@ public class LoginInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // Do nothing
     }
-}*/
+}
