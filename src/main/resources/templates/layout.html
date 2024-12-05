@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 헤더 영역-->
+<th:block th:replace="common/fragments/header :: headerFragment">
+</th:block>
+
+<!--바디영역-->
+<body>
+<th:block th:include="common/navbar :: specificContent"></th:block>
+<th:block layout:fragment="content">
+
+</th:block>
+<!--푸터 영역-->
+<th:block th:include="common/fragments/footer :: footerFragment"></th:block>
+</body>
+
+</html>

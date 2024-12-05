@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" lang="kr">
+<th:block layout:fragment="content">
+    <section id="calendar">
+        <div class="container-fluid">
+            <form id="workHistoryForm" action="/saveEdit" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-40">업무일지 작성</h3>
+                            <div class="form-group" hidden>
+                                <input type="text" class="form-control" id="management" name="management" required readonly th:value="${result['관리ID']}">
+                                <label class="col-xs-1 col-form-label" for="userId" id="userIdLabel">사용자ID <span class="text-danger">*</span></label>
+                                <div class="col-lg-8" id="userIdContainer">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="text" class="form-control" id="userId" name="userId" required value="001" readonly >
+                                        </div>
+                                    </div><!--row-->
+                                </div><!--col-->
+                            </div><!--사용자 ID form-group-->
+                            <div class="form-group" >
+                                <label for="date" class="col-sm-3 control-label">작성 날짜<span class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" id="date" name="date" required onchange="loadDataForSelectedDate(this.value)"
+                                           th:value="${edit.formattedDate}" th:attr="data-formatted-date=${edit.formattedDate}"></div>
+                            </div><!--작성날짜 form-group-->
+                            <div class="form-group p-t-30">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg">
+                                        <label for="timepicker" class="col-xl col-lg col-md col-sm-6 control-label">출근시간 <span class="text-danger">*</span></label>
+                                        <div class="col-lg col-md-10 col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="timepicker" name="startTime" required value="09:00" th:value="${result['출근시간']}">
+                                                <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="normalWorkButton">정상 출근</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="lateTime" class="col-xl col-lg col-md col-sm-6 control-label">지각시간 <span class="text-danger">*</span></label>
+                                        <div class="col-lg col-md-10 col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="lateTime" name="lateTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);" th:value="${result['지각시간']}">
+                                                <div class=" time-button-container">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" type="button" id="increaseBtn">+</button>
+                                                    </span>
+                                                    <span class="input-group-btn ml-2">
+                                                        <button class="btn btn-primary" type="button" id="decreaseBtn">-</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--col-->
+                                </div><!--row-->
+                            </div><!--출근시간,지각시간 form group-->
+                            <div class="form-group p-b-20">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg">
+                                        <label for="timepickerEndTime" class="col-xl col-lg col-md col-sm-6 control-label">퇴근시간<span class="text-danger">*</span></label>
+                                        <div class="col-lg col-md-10 col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="timepickerEndTime" name="endTime" required value="09:00" th:value="${result['퇴근시간']}">
+                                                <span class="input-group-btn ">
+                                                <button class="btn btn-primary" type="button" id="leaveWorkButton">정상 퇴근</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="earlyLeaveTime" class="col-xl col-lg col-md col-sm-6 control-label">조퇴시간<span class="text-danger">*</span></label>
+                                        <div class="col-lg col-md-10 col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="earlyLeaveTime" name="earlyLeaveTime" value="0" min="0" oninput="addManualInputToStartTime(this.value);" th:value="${result['조퇴시간']}">
+                                                <div class=" time-button-container">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary" type="button" id="increaseEarlyLeaveBtn">+</button>
+                                                </span>
+                                                    <span class="input-group-btn ml-2">
+                                                    <button class="btn btn-primary" type="button" id="decreaseEarlyLeaveBtn">-</button>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--col-->
+                                </div><!--row-->
+                            </div><!--퇴근시간,조퇴시간 form group-->
+                            <div class="form-group p-t-40">
+                                <div class="row align-items-stretch">
+                                    <div class="col-sm col-md-6">
+                                        <div class="card shadow first-card">
+                                            <div class="card-body">
+                                                <div class="col col-sm">
+                                                    <div class="form-validation">
+                                                        <h3>당일 처리 항목</h3><br>
+                                                    </div>
+                                                    <div id="todayItemContainer">
+                                                        <div class="form-group">
+                                                            <label for="dailyItemCount">처리개수<br></label>
+                                                            <div class="number-box" id="dailyItemCount"></div>
+                                                        </div>
+                                                        <div class="form-group mt-5">
+                                                            <label for="dailyDuration">소요시간합계</label>
+                                                            <div class="number-box" id="dailyDuration"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm col-md-6">
+                                        <div class="card shadow second-card">
+                                            <div class="card-body">
+                                                <div class="col col-sm my-2 my-md-2">
+                                                    <div class="form-validation">
+                                                        <h3>오늘 작업</h3><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="todayItemCount">처리 개수</label>
+                                                        <div class="number-box" id="todayItemCount"></div>
+                                                    </div>
+                                                    <div class="form-group p-3 p-md-3">
+                                                        <label for="dailyDuration"></label>
+                                                        <div class="number-box" id="dailyDuration1"></div>
+                                                    </div>
+                                                </div><!--col-->
+                                            </div><!--card-body-->
+                                        </div><!--card-->
+                                    </div><!--col-->
+                                </div><!--row-->
+                            </div><!--당일 처리,오늘 작업 form-group-->
+                        </div><!--white box-->
+                    </div><!--col-6-->
+                    <div class="col-md-6">
+                        <div class="white-box">
+                            <div class="m-b-30"></div>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-validation">
+                                        <h5>업무내용<span class="text-danger">*</span></h5>
+                                    </div>
+                                    <div id="smarteditor">
+                                        <label for="editorTxt"></label>
+                                        <textarea name="editorTxt" id="editorTxt"
+                                                  rows="5" cols="5"
+                                                  placeholder="내용을 입력해주세요"
+                                                  style="max-width:750px;width: 100%; margin-bottom: 2px" required th:text="${result['비고']}"></textarea>
+                                    </div>
+                                    <div class="form-validation">
+                                        <br>
+                                        <h5>요청사항</h5>
+                                    </div>
+                                    <div class="request-section">
+                                        <label for="request"></label>
+                                        <textarea id="request"
+                                                  name="request" rows="5"
+                                                  cols="20" style="width:100%; box-sizing:border-box;" th:text="${result['요청사항']}"></textarea>
+                                    </div>
+                                    <div class="form-validation">
+                                        <br>
+                                        <h5>긴급요청건</h5>
+                                    </div>
+                                    <div class="request-section mb-3">
+                                        <label for="urgentRequest"></label>
+                                        <textarea id="urgentRequest"
+                                                  name="urgentRequest" rows="5"
+                                                  cols="20" style="width:100%; box-sizing:border-box;" th:text="${result['긴급요청건']}"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 d-flex justify-content-end">
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10" id="saveButton">Submit</button>
+                                                <button type="submit" class="btn btn-inverse waves-effect waves-light" id="cancelButton">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--row-->
+            </form><!--폼-->
+        </div><!--컨테이너-->
+        <!-- 출근시간 -->
+        <script>
+            $('#timepicker').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 60,
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+
+            var startTimeInput = $("#timepicker");
+            var lateTimeInput = $("#lateTime");
+
+            function addOrSubtractMinutes(time, minutes) {
+                time.minutes += minutes;
+                time.hours += Math.floor(time.minutes / 60);
+                time.minutes %= 60;
+                return time;
+            }
+
+            function parseTime(timeString) {
+                var parts = timeString.split(":");
+                return { hours: parseInt(parts[0]), minutes: parseInt(parts[1]) };
+            }
+
+            function formatTime(time) {
+                if (time && typeof time.hours !== 'undefined' && typeof time.minutes !== 'undefined') {
+                    return time.hours.toString().padStart(2, "0") + ":" + time.minutes.toString().padStart(2, "0");
+                } else {
+                    // Handle the case when time is undefined or missing properties
+                    return "";
+                }
+            }
+
+            $("#decreaseBtn").on("click", function () {
+                var currentValue = parseInt(lateTimeInput.val()) || 0;
+                if (currentValue > 0) {
+                    lateTimeInput.val(currentValue - 1);
+                    subtractMinutesFromStartTime(1);
+                }
+            });
+
+            function subtractMinutesFromStartTime(minutes) {
+                var startTime = parseTime(startTimeInput.val());
+                startTime.minutes -= minutes;
+                while (startTime.minutes < 0) {
+                    startTime.minutes += 60;
+                    startTime.hours -= 1;
+                }
+                while (startTime.hours < 0) {
+                    startTime.hours += 24;
+                }
+                startTimeInput.val(formatTime(startTime));
+            }
+        </script>
+        <!--지각시간-->
+        <script>
+            $(document).ready(function () {
+                $("#increaseBtn").on("click", function () {
+                    var currentLateTime = parseInt(lateTimeInput.val()) || 0;
+                    lateTimeInput.val(currentLateTime + 1);
+                    addManualInputToStartTime(1);
+                });
+            });
+
+            function addManualInputToStartTime(manualInput) {
+                var startTimeInput = $("#timepicker");
+                var lateTimeInput = $("#lateTime");
+
+                // 이전 지각시간을 저장하여 차이를 계산
+                var previousLateTime = parseInt(lateTimeInput.data("previousLateTime")) || 0;
+
+                // 출근시간 초기화
+                var startTime = parseTime(startTimeInput.val());
+
+                // 새로운 지각시간만 출근시간에 더하도록 수정
+                var lateTime = parseInt(lateTimeInput.val()) || 0;
+                lateTime = Math.sign(manualInput) * Math.abs(lateTime);
+
+                // 이전 지각시간의 차이를 출근시간에서 빼줌
+                startTime = addOrSubtractMinutes(startTime, -previousLateTime);
+
+                // 새로운 지각시간을 출근시간에 더함
+                startTime = addOrSubtractMinutes(startTime, lateTime);
+
+                // 출근시간과 현재 지각시간을 업데이트
+                startTimeInput.val(formatTime(startTime));
+                lateTimeInput.data("previousLateTime", lateTime);
+            }
+        </script>
+
+        <!--퇴근시간-->
+        <script>
+            // 변경된 ID를 사용
+            $('#timepickerEndTime').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 60,
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+
+            // 조퇴시간 입력 필드의 입력 이벤트
+            var endTimeInput = $("#timepickerEndTime");
+            var earlyLeaveTimeInput = $("#earlyLeaveTime");
+
+            function addOrSubtractMinutess(time, minutes) {
+                time.minutes += minutes;
+                time.hours += Math.floor(time.minutes / 60);
+                time.minutes %= 60;
+                return time;
+            }
+
+            function parseTime(timeString) {
+                var parts = timeString.split(":");
+                return { hours: parseInt(parts[0]), minutes: parseInt(parts[1]) };
+            }
+
+
+            function formatTime(time) {
+                if (time && typeof time.hours !== 'undefined' && typeof time.minutes !== 'undefined') {
+                    return time.hours.toString().padStart(2, "0") + ":" + time.minutes.toString().padStart(2, "0");
+                } else {
+                    // Handle the case when time is undefined or missing properties
+                    console.error("Invalid time object:", time);
+                    return undefined;
+                }
+            }
+
+            // - 버튼 클릭 시
+            $("#decreaseEarlyLeaveBtn").on("click", function () {
+                var currentValue = parseInt(earlyLeaveTimeInput.val());
+                if (currentValue > 0) {
+                    earlyLeaveTimeInput.val(currentValue - 1);
+                    subtractMinutesFromEndTime(1); // 퇴근시간에서 분 빼기
+                }
+            });
+
+            // 퇴근시간에서 분을 빼는 함수
+            function subtractMinutesFromEndTime(minutes) {
+                var endTime = parseTime(endTimeInput.val());
+                endTime.minutes -= minutes;
+                while (endTime.minutes < 0) {
+                    endTime.minutes += 60;
+                    endTime.hours -= 1;
+                }
+                while (endTime.hours < 0) {
+                    endTime.hours += 24;
+                }
+                endTimeInput.val(formatTime(endTime));
+            }
+
+        </script>
+
+        <!--조퇴시간-->
+        <script>
+            $(document).ready(function () {
+
+                // + 버튼 클릭 시
+                $("#increaseEarlyLeaveBtn").on("click", function () {
+                    var currentValue = parseInt(earlyLeaveTimeInput.val());
+                    earlyLeaveTimeInput.val(currentValue + 1);
+                    addManualInputToEndTime(1); // 퇴근시간 업데이트
+
+                });
+            });
+            function addManualInputToEndTime() {
+                var endTimeInput = $("#timepickerEndTime");
+                var earlyLeaveTimeInput = $("#earlyLeaveTime");
+
+                // 데이터 속성에서 previousLateTime 가져오기
+                var previousLateTime = parseInt(earlyLeaveTimeInput.data("previousLateTime")) || 0;
+
+                // 현재 endTime을 구문 분석
+                var endTime = parseTime(endTimeInput.val());
+
+                // 퇴근시간 객체의 유효성 검사
+                if (isNaN(endTime.hours) || isNaN(endTime.minutes)) {
+                    // 구문 분석된 시간이 잘못된 경우 처리
+                    console.error("잘못된 endTime 객체:", endTime);
+                    return;
+                }
+
+                // 퇴근시간 객체 처리
+                var earlyLeaveTime = parseInt(earlyLeaveTimeInput.val()) || 0;
+
+                // 조퇴시간 빼기
+                endTime = addOrSubtractMinutess(endTime, -previousLateTime);
+
+                // 새로운 조퇴시간 추가
+                endTime = addOrSubtractMinutess(endTime, earlyLeaveTime);
+
+                // 퇴근시간 업데이트 및 현재 조퇴시간 저장
+                endTimeInput.val(formatTime(endTime));
+                earlyLeaveTimeInput.data("previousLateTime", earlyLeaveTime);
+            }
+        </script>
+
+
+        <script>
+
+            function getToken() {
+                const tokenCookie = document.cookie.split('; ').find(row => row.startsWith('token='));
+                return tokenCookie ? tokenCookie.split('=')[1] : null;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const today = new Date().toISOString().split('T')[0];
+                fetchData(`/completed?inputDate=${today}`, 'todayItemContainer', updateViewWithData);
+                fetchData(`/processing?inputDate=${today}`, 'todayItemContainer', updateViewWithData2);
+            });
+
+            function fetchData(apiEndpoint, targetElementId, additionalProcessing = null) {
+                const token = getToken();
+
+                $.ajax({
+                    url: apiEndpoint,
+                    type: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        // 서버에서 받은 데이터를 뷰에 반영
+                        console.log(data);
+                        if (additionalProcessing) {
+                            additionalProcessing(data);
+                        }
+                    },
+                    error: function () {
+                        // 에러 처리
+                        console.error('Failed to fetch data for the selected date');
+                    }
+                });
+            }
+
+            function updateViewWithData(data) {
+                document.getElementById('dailyItemCount').innerText = data.처리개수;
+                document.getElementById('dailyDuration').innerText = data.소요시간합계;
+            }
+
+            function updateViewWithData2(data) {
+                document.getElementById('todayItemCount').innerText = data.처리개수;
+            }
+
+            // 완료처리리스트에 대한 HTML을 동적으로 생성하는 함수 예시
+            function generateListHTML(completedList) {
+                let listHTML = '<ul>';
+                for (const item of completedList) {
+                    listHTML += `<li>${item}</li>`;
+                }
+                listHTML += '</ul>';
+                return listHTML;
+            }
+
+            function loadDataForSelectedDate(selectedDate) {
+                fetchData(`/completed?inputDate=${selectedDate}`, 'todayItemContainer', updateViewWithData);
+                fetchData(`/processing?inputDate=${selectedDate}`, 'todayItemContainer', updateViewWithData2);
+            }
+            function onDateChange() {
+                const selectedDateElement = document.getElementById('date');
+                if (selectedDateElement) {
+                    const selectedDate = selectedDateElement.value;
+                    console.log('Selected Date:', selectedDate);
+                    if (selectedDate) {
+                        loadDataForSelectedDate(selectedDate);
+                    } else {
+                        console.error('Selected date is undefined or empty.');
+                    }
+                } else {
+                    console.error('Date input element not found.');
+                }
+            }
+        </script>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const normalWorkButton = document.getElementById('normalWorkButton');
+                const leaveWorkButton = document.getElementById('leaveWorkButton');
+                const lateTimeInput = document.getElementById("lateTime");
+                const earlyLeaveTime = document.getElementById("earlyLeaveTime");
+
+
+                // normalWorkButton 클릭 시 alert만 표시
+                normalWorkButton.addEventListener('click', function () {
+                    if (lateTimeInput.value !== '0') {
+                        alert('지각시간이 입력되어 정상출근할 수 없습니다.');
+                    } else if (!normalWorkButton.classList.contains('active')) {
+                        normalWorkButton.classList.add('active');
+                        alert('정상출근 버튼이 클릭되었습니다.');
+                        console.log('정상 출근 버튼이 클릭되었습니다.');
+                        lateTimeInput.value = '0';
+                    } else {
+                        alert('이미 정상출근으로 처리 되었습니다.');
+                    }
+                });
+
+                // 정상퇴근 버튼 클릭 시
+                leaveWorkButton.addEventListener('click', function () {
+                    if (earlyLeaveTime.value !== '0') {
+                        alert('조퇴시간이 입력되어 정상퇴근할 수 없습니다.');
+                    } else if (!leaveWorkButton.classList.contains('active')) {
+                        leaveWorkButton.classList.add('active');
+                        alert('정상퇴근 버튼이 클릭되었습니다.');
+                        console.log('정상 퇴근 버튼이 클릭되었습니다.');
+                        earlyLeaveTime.value = '0';
+
+                        const sendData = {
+                            "지각시간": lateTimeInput.value, // 지각시간 값 유지
+                        }
+                        // 정상출근이 true이고 정상퇴근이 false라면 조퇴의 값이 있는 경우에만 설정
+                        if (normalWorkButton.classList.contains('active') && !leaveWorkButton.classList.contains('active')) {
+                            sendData["조퇴시간"] = earlyLeaveTime.value;
+                        } else {
+                            sendData["조퇴시간"] = '0'; // 아니면 0으로 설정
+                        }
+                        // 여기에서 sendData를 서버로 전송하면 됩니다.
+                        console.log('전송할 데이터:', sendData);
+                    } else {
+                        alert('이미 정상퇴근으로 처리 되었습니다.');
+                    }
+                });
+
+            });
+
+            const tokenCookie = document.cookie.split('; ').find(row => row.startsWith('token='));
+            const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+
+            console.log('쿠키 전체 값:', document.cookie); // 쿠키 전체 값 확인
+            console.log('토큰 쿠키 값:', token ? token : '쿠키가 없습니다.');
+
+            document.addEventListener("DOMContentLoaded", function (lateTimeSelect) {
+                document.getElementById('saveButton').addEventListener('click', function(event) {
+                    submitProcessForm(); // 이 부분에서 폼을 제출하도록 함수 호출
+                });
+
+                document.getElementById('workHistoryForm').addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    submitProcessForm(); // 폼 제출 시 submitProcessForm 함수 호출
+                });
+
+                const fixedUserId = "001";
+                async function submitProcessForm() {
+                    const fixedUserId = document.getElementById('userId').value;
+                    const date = document.getElementById('date').value;
+                    const startTime = document.getElementById('timepicker').value;
+                    const endTime = document.getElementById('timepickerEndTime').value;
+                    const lateTimeInput = document.getElementById('lateTime');
+                    const lateTimeValue = lateTimeInput.value.trim();
+                    const earlyLeaveTimeInput = document.getElementById('earlyLeaveTime');
+                    const earlyLeaveTimeValue = earlyLeaveTimeInput.value.trim();
+                    const request = document.getElementById('request').value;
+                    const urgentRequest = document.getElementById('urgentRequest').value;
+                    const management = document.getElementById('management').value;
+
+                    oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+                    let content = oEditors.getById["editorTxt"].getIR();
+
+                    // 여기서 원하는 데이터를 생성합니다.
+                    const data = {
+                        "사용자ID": fixedUserId,
+                        "작성날짜": date,
+                        "출근시간": startTime,
+                        "퇴근시간": endTime,
+                        "정상근태여부": document.getElementById('normalWorkButton').classList.contains('active'), // 정상출근 버튼이 active인지 확인하여 true/false 설정
+                        "정상퇴근여부": document.getElementById('leaveWorkButton').classList.contains('active'), // 정상퇴근 버튼이 active인지 확인하여 true/false 설정
+                        "지각시간": lateTimeValue,
+                        "조퇴시간": earlyLeaveTimeValue,
+                        "요청사항": request,
+                        "긴급요청건": urgentRequest,
+                        "비고":content,
+                        "현재검수대기": 0,
+                        "당일검수완료": 0,
+                        "당일수리완료": 0,
+                        "업무소요시간": 0,
+                        "관리ID": management,
+                    };
+                    // 데이터 출력
+                    console.log('전송할 데이터:', data);
+                    console.log('사용하는 토큰 값:', token); // 토큰 값 확인
+                    try {
+                        const response = await fetch('/saveEdit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': `Bearer ${token}`, // 토큰 추가
+                            },
+                            body: JSON.stringify(data),
+                        });
+
+                        if (response.ok) {
+                            // 요청 성공 시 응답을 처리합니다.
+                            console.log('근무 기록이 성공적으로 저장되었습니다.');
+                            window.location.href = '/calendar';
+                        } else {
+                            // 요청 실패 시 오류를 처리합니다.
+                            console.error('근무 기록을 저장하는 데 실패했습니다. 상태:', response.status);
+                            const errorData = await response.json();
+                            console.error('오류 세부 정보:', errorData);
+                        }
+                    } catch (error) {
+                        console.error('요청 중 오류가 발생했습니다:', error);
+                    }
+                }
+            });
+        </script>
+        <script src="/css/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    </section>
+
+</th:block>
+</html>

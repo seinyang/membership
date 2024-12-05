@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" lang="kr">
+<th:block layout:fragment="content">
+<!-- 근태현황 테이블,뱃지,calendar -->
+    <section id="calendar">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-8">
+                        <div class="col" id='calendar-container'>
+                            <div id='calendars'></div>
+                        </div>
+                </div>
+                <div class="col col-md-4" style="display: flex;
+    justify-content: center;">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card attendance">
+                                <div class="card-title">
+                                    <h2 class="text-muted text-dark m-b-30 font-13"> 이달의 근태현황 </h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="header">
+                                                    #
+                                                </th>
+                                                <th class="data">
+                                                    출근상태
+                                                </th>
+                                                <th class="duration">
+                                                    일수
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="header">
+                                                    1
+                                                </td>
+                                                <td class="data">
+                                                    전체출근일수
+                                                </td>
+                                                <td id="totalDaysCell" class="duration">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="header">
+                                                    2
+                                                </td>
+                                                <td class="data">
+                                                    <span class="table-badge badge-pill badge-success text-dark"> 정상출근</span>
+                                                </td>
+                                                <td id="normalAttendanceCell" class="duration">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="header">
+                                                    3
+                                                </td>
+                                                <td class="data">
+                                                    <span class="table-badge badge-pill badge-warning">정상퇴근</span>
+                                                </td>
+                                                <td id="normalLeaveCell" class="duration">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="header">
+                                                    4
+                                                </td>
+                                                <td class="data">
+                                                    <span class="table-badge badge-pill badge-danger text-dark">지각</span>
+                                                </td>
+                                                <td id="lateCell" class="duration">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="header">
+                                                    5
+                                                </td>
+                                                <td class="data">
+                                                    <span class="table-badge badge-pill badge-primary text-dark">조퇴</span>
+                                                </td>
+                                                <td id="earlyLeaveCell" class="duration">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!--table-->
+                                </div><!--card-bady-->
+                            </div><!--card-->
+                        </div><!--col-->
+                    </div><!--row-->
+                </div>
+            </div><!--row-->
+        </div><!--container-->
+    <script src="/assets/calendar.js"></script>
+    <script src="/js/fullcalendar/calendar/fullcalendar.min.js"></script>
+    <script src="/js/fullcalendar/packages/moment/moment.js"></script>
+    <script src="/js/fullcalendar/dist/index.global.min.js"></script>
+    <script src="/js/fullcalendar/packages/core/locales-all.global.min.js"></script>
+    </section>
+</th:block>
+</html>

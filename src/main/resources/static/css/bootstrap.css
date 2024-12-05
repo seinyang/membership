@@ -1992,9 +1992,10 @@ pre code {
 
 .table-responsive {
   display: block;
-  width: 100%;
+  width: 126%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  padding: 0 103px 0 103px;
 }
 
 .table-responsive > .table-bordered {
@@ -2015,6 +2016,7 @@ pre code {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin: 4px -17px auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4367,7 +4369,7 @@ input[type="button"].btn-block {
   align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 2.5rem 1rem;
 }
 
 .navbar .container,
@@ -4745,7 +4747,9 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.5);
 }
-
+.navbar-dark{
+  color: #000000;
+}
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
   color: rgba(255, 255, 255, 0.75);
 }
@@ -4792,7 +4796,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+
   border-radius: 0.25rem;
 }
 
@@ -4828,6 +4832,7 @@ input[type="button"].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+  height: auto;
 }
 
 .card-title {

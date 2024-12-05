@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" lang="kr">
+<div th:fragment="specificContent">
+    <!-- 네브바 내용 -->
+    <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-info px-5 py-3">
+        <a class="navbar-brand mx-5 ml-5" href="#"><h1>NEO</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mx-5 mr-5" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/workload"><i class="fa-solid fa-pen"></i>업무 일지 작성 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link disabled" href=""><i class="fa-solid fa-check"></i>업무 일지 리스트</a>
+                </li>
+                <li class="nav-item mr-1">
+                    <a class="nav-link" href="/calendar"><i class="fa-regular fa-calendar-plus"></i>근태 내역 및 달력</a>
+                </li>
+
+                <li class="nav-item dropdown ml-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>관리자
+                    </a>
+                    <div class="dropdown-menu">
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
